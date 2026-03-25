@@ -794,6 +794,8 @@ footer {
   .cp-line { margin: 0 8px; }
   .ship-grid { grid-template-columns: 1fr !important; }
   .policy-grid { grid-template-columns: 1fr 1fr !important; }
+  .wa-float { bottom: 24px; right: 24px; }
+  .ig-float { bottom: 88px; right: 24px; width: 54px; height: 54px; }
 }
 
 /* ── LAPTOP (900px+) ── */
@@ -820,7 +822,6 @@ footer {
   .sc-price { font-size: 1.2rem; }
   .sc-btn { width: auto; padding: 13px 32px; font-size: .76rem; }
   .sc-sub { display: block; }
-  .wa-float { bottom: 24px; right: 24px; }
   .wa-btn { width: 58px; height: 58px; }
   .wa-btn svg { width: 28px; height: 28px; }
   footer { padding: 44px 40px 32px; }
@@ -926,7 +927,7 @@ footer {
 
 /* ── WA BUTTON ── */
 .wa-float {
-  position: fixed; bottom: 70px; right: 16px; z-index: 849;
+  position: fixed; bottom: 16px; right: 16px; z-index: 849;
   display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
 }
 .wa-btn {
@@ -1205,8 +1206,8 @@ footer {
 
 /* ── INSTAGRAM FLOAT ── */
 .ig-float {
-  position: fixed; bottom: 130px; right: 16px; z-index: 849;
-  width: 44px; height: 44px; border-radius: 999px;
+  position: fixed; bottom: 80px; right: 16px; z-index: 849;
+  width: 46px; height: 46px; border-radius: 999px;
   background: radial-gradient(circle at 30% 110%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%);
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 4px 20px rgba(214,36,159,.4);
@@ -1215,7 +1216,6 @@ footer {
 }
 .ig-float:hover { transform: scale(1.1); box-shadow: 0 8px 28px rgba(214,36,159,.55); }
 @media(min-width:900px){
-  .ig-float { bottom: 86px; right: 24px; width: 54px; height: 54px; }
 }
 
 </style>
