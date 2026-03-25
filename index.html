@@ -1400,7 +1400,35 @@ footer {
     Tu visión hecha
     <span class="line2"><span class="grad-text">arte tangible.</span></span>
   </h1>
-  <p class="hero-sub">Configura tu cuadro personalizado en minutos. Elige el material, ajusta las dimensiones, sube tu diseño y obtén precio al instante. Producción profesional, entrega a domicilio.</p>
+  <p class="hero-sub">Elige el material, el tamaño y <strong style="color:#fff">sube tu propio diseño</strong> — o elige uno de nuestra galería. Precio al instante. Producción profesional.</p>
+  <div style="display:flex;gap:0;margin-bottom:36px;
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+    border-radius:16px;overflow:hidden;max-width:540px;width:100%;
+    opacity:0;animation:fu .9s var(--ease) .38s forwards;">
+    <div style="flex:1;padding:14px 16px;
+      border-right:1px solid rgba(255,255,255,.08);text-align:center;">
+      <div style="font-size:.7rem;margin-bottom:4px">🎨</div>
+      <div style="font-family:Syne;font-size:.66rem;font-weight:700;
+        color:#fff;margin-bottom:2px">Tu diseño</div>
+      <div style="font-size:.58rem;color:rgba(255,255,255,.4);line-height:1.4">
+        Sube tu imagen<br>o elige el nuestro</div>
+    </div>
+    <div style="flex:1;padding:14px 16px;
+      border-right:1px solid rgba(255,255,255,.08);text-align:center;">
+      <div style="font-size:.7rem;margin-bottom:4px">📐</div>
+      <div style="font-family:Syne;font-size:.66rem;font-weight:700;
+        color:#fff;margin-bottom:2px">Tu tamaño</div>
+      <div style="font-size:.58rem;color:rgba(255,255,255,.4);line-height:1.4">
+        Estándar o<br>medida exacta</div>
+    </div>
+    <div style="flex:1;padding:14px 16px;text-align:center;">
+      <div style="font-size:.7rem;margin-bottom:4px">⚡</div>
+      <div style="font-family:Syne;font-size:.66rem;font-weight:700;
+        color:#fff;margin-bottom:2px">Precio al instante</div>
+      <div style="font-size:.58rem;color:rgba(255,255,255,.4);line-height:1.4">
+        Se calcula solo<br>mientras configuras</div>
+    </div>
+  </div>
   <div class="hero-cta">
     <button class="btn-grad" onclick="smoothTo('configurador')">Configurar mi cuadro →</button>
     <button class="btn-ghost" onclick="smoothTo('galeria')">Ver galería de diseños ↓</button>
@@ -1670,14 +1698,32 @@ footer {
             <div class="step-num">3</div>
             <div class="step-hd-text">
               <div class="step-hd-title">Tu diseño</div>
-              <div class="step-hd-hint">Sube tu archivo o elige de nuestra galería</div>
+              <div class="step-hd-hint">Tu diseño propio <span style="color:var(--a4)">o</span> uno de nuestra galería</div>
             </div>
             <div class="step-badge" id="badge3">✓ Seleccionado</div>
           </div>
           <div class="step-body">
-            <div class="design-toggle">
-              <div class="toggle" id="designToggle" onclick="toggleDesign()"></div>
-              <span class="design-toggle-label" id="toggleLabel">Subir mi archivo</span>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;">
+              <button id="tabUpload" onclick="switchDesignTab('upload')"
+                style="padding:14px 12px;border-radius:14px;border:2px solid var(--a3);
+                       background:var(--a-light);color:var(--white);font-family:'DM Sans';
+                       font-size:.78rem;font-weight:600;cursor:pointer;
+                       transition:all .22s;display:flex;flex-direction:column;
+                       align-items:center;gap:6px;text-align:center;">
+                <span style="font-size:1.2rem">📁</span>
+                <span style="font-family:Syne;font-weight:700;font-size:.76rem">Subir mi diseño</span>
+                <span style="font-size:.62rem;color:var(--dim);font-weight:400">PNG · JPG · PDF</span>
+              </button>
+              <button id="tabGallery" onclick="switchDesignTab('gallery')"
+                style="padding:14px 12px;border-radius:14px;border:2px solid var(--line2);
+                       background:var(--panel);color:var(--white);font-family:'DM Sans';
+                       font-size:.78rem;font-weight:600;cursor:pointer;
+                       transition:all .22s;display:flex;flex-direction:column;
+                       align-items:center;gap:6px;text-align:center;">
+                <span style="font-size:1.2rem">🖼</span>
+                <span style="font-family:Syne;font-weight:700;font-size:.76rem">Elegir diseño</span>
+                <span style="font-size:.62rem;color:var(--dim);font-weight:400">De nuestra galería</span>
+              </button>
             </div>
 
             <!-- Upload -->
@@ -1688,9 +1734,9 @@ footer {
                 ondragleave="this.classList.remove('drag')"
                 ondrop="onDrop(event)">
                 <div class="dz-icon">📁</div>
-                <div class="dz-title">Arrastra tu archivo aquí</div>
-                <div class="dz-sub">o haz clic para explorar</div>
-                <div class="dz-fmt">PNG · JPG · PDF — Máximo 50 MB</div>
+                <div class="dz-title">Sube tu propio diseño</div>
+                <div class="dz-sub">Arrastra o haz clic para seleccionar</div>
+                <div class="dz-fmt">PNG · JPG · PDF · Máximo 50 MB · Alta resolución recomendada</div>
               </div>
               <div class="upload-preview" id="upPrev">
                 <img id="upImg" src="" alt="Vista previa">
@@ -2265,19 +2311,30 @@ function customSize() {
 
 // ── DESIGN ──
 let designGalleryMode = false;
-function toggleDesign() {
-  designGalleryMode = !designGalleryMode;
-  applyToggle();
+function switchDesignTab(mode) {
+  const isGallery = mode === 'gallery';
+  const tabUp  = document.getElementById('tabUpload');
+  const tabGal = document.getElementById('tabGallery');
+  if (tabUp) {
+    tabUp.style.borderColor = isGallery ? 'var(--line2)' : 'var(--a3)';
+    tabUp.style.background  = isGallery ? 'var(--panel)' : 'var(--a-light)';
+  }
+  if (tabGal) {
+    tabGal.style.borderColor = isGallery ? 'var(--a3)' : 'var(--line2)';
+    tabGal.style.background  = isGallery ? 'var(--a-light)' : 'var(--panel)';
+  }
+  document.getElementById('uploadSection').style.display        = isGallery ? 'none' : '';
+  document.getElementById('galleryDesignSection').style.display = isGallery ? ''     : 'none';
+  designGalleryMode = isGallery;
+  S.designSource = isGallery ? 'gallery' : 'upload';
+  if (!isGallery) {
+    S.designName = null; S.designEmoji = null;
+    document.querySelectorAll('.dg-item').forEach(d => d.classList.remove('sel'));
+    clearPreviewPanel(); recalc();
+  }
 }
-function applyToggle() {
-  const t = document.getElementById('designToggle');
-  const l = document.getElementById('toggleLabel');
-  t.classList.toggle('on', designGalleryMode);
-  l.textContent = designGalleryMode ? 'Elegir de galería' : 'Subir mi archivo';
-  document.getElementById('uploadSection').style.display = designGalleryMode ? 'none' : '';
-  document.getElementById('galleryDesignSection').style.display = designGalleryMode ? '' : 'none';
-  if (!designGalleryMode) { S.designName = null; S.designEmoji = null; document.querySelectorAll('.dg-item').forEach(d=>d.classList.remove('sel')); clearPreviewPanel(); recalc(); }
-}
+function toggleDesign() { switchDesignTab(designGalleryMode ? 'upload' : 'gallery'); }
+function applyToggle() { switchDesignTab(designGalleryMode ? 'gallery' : 'upload'); }
 
 // File upload
 function onFile(inp) { if (inp.files[0]) processFile(inp.files[0]); }
