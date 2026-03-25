@@ -472,6 +472,11 @@ nav {
 }
 .type-card.sel .tc-check { display: flex; }
 .tc-icon { font-size: 2rem; margin-bottom: 10px; display: block; position: relative; z-index: 1; }
+.tc-icon-img {
+  width: 56px; height: 56px; border-radius: 12px;
+  object-fit: cover; display: block; margin: 0 auto 10px;
+  position: relative; z-index: 1;
+}
 .tc-name { font-family: 'Syne'; font-size: .76rem; font-weight: 700; display: block; margin-bottom: 4px; position: relative; z-index: 1; }
 .tc-rate { font-size: .62rem; color: var(--muted); display: block; position: relative; z-index: 1; }
 
@@ -1423,7 +1428,7 @@ footer {
   <div class="materials-grid">
     <div class="mat-card" style="--accent-color:rgba(6,182,212,.15)">
       <div class="mat-img">
-        <img src="https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/icono%20Acrilico.jpg"
+        <img src="https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/1.jpg"
              alt="Acrílico encapsulado" class="mat-img-photo">
         <div class="mat-img-glow" style="--mat-color:rgba(6,182,212,.3)"></div>
       </div>
@@ -1443,7 +1448,7 @@ footer {
 
     <div class="mat-card" style="--accent-color:rgba(245,158,11,.1)">
       <div class="mat-img">
-        <img src="https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/icono%20Tela.jpg"
+        <img src="https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/2.jpg"
              alt="Impresión en tela" class="mat-img-photo">
         <div class="mat-img-glow" style="--mat-color:rgba(245,158,11,.25)"></div>
       </div>
@@ -1463,7 +1468,7 @@ footer {
 
     <div class="mat-card" style="--accent-color:rgba(16,185,129,.1)">
       <div class="mat-img">
-        <img src="https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/icono%20Neon.jpg"
+        <img src="https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/3.jpg"
              alt="Cuadro de neón" class="mat-img-photo">
         <div class="mat-img-glow" style="--mat-color:rgba(16,185,129,.25)"></div>
       </div>
@@ -1559,19 +1564,19 @@ footer {
             <div class="type-cards">
               <div class="type-card" onclick="selectType(this,'acrilico')" style="--tc:rgba(6,182,212,.3)">
                 <div class="tc-check">✓</div>
-                <span class="tc-icon">🔷</span>
+                <img class="tc-icon-img" src="https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/icono%20Acrilico.jpg" alt="Acrílico">
                 <span class="tc-name">Acrílico</span>
                 <span class="tc-rate" id="rate-acrilico">$0.85/cm²</span>
               </div>
               <div class="type-card" onclick="selectType(this,'tela')" style="--tc:rgba(245,158,11,.3)">
                 <div class="tc-check">✓</div>
-                <span class="tc-icon">🖼</span>
+                <img class="tc-icon-img" src="https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/icono%20Tela.jpg" alt="Tela">
                 <span class="tc-name">Tela</span>
                 <span class="tc-rate" id="rate-tela">$0.55/cm²</span>
               </div>
               <div class="type-card" onclick="selectType(this,'neon')" style="--tc:rgba(16,185,129,.3)">
                 <div class="tc-check">✓</div>
-                <span class="tc-icon">💡</span>
+                <img class="tc-icon-img" src="https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/icono%20Neon.jpg" alt="Neón">
                 <span class="tc-name">Neón</span>
                 <span class="tc-rate" id="rate-neon">$1.20/cm²</span>
               </div>
