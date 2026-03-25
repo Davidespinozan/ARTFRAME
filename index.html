@@ -822,10 +822,14 @@ footer {
   .stat-n { font-size: 2.8rem; }
   .trust-bar { padding: 10px 40px; gap: 32px; flex-wrap: wrap; justify-content: center; overflow: visible; }
   .sticky-cta { padding: 14px 40px; flex-direction: row; gap: 20px; }
-  .sc-btn { width: auto; }
+  .sc-title { font-size: .88rem; }
+  .sc-price { font-size: 1.2rem; }
+  .sc-btn { width: auto; padding: 13px 32px; font-size: .76rem; }
   .sc-sub { display: block; }
   .wa-float { bottom: 28px; right: 28px; }
+  .wa-bubble { display: block; }
   .wa-btn { width: 58px; height: 58px; }
+  .wa-btn svg { width: 28px; height: 28px; }
   .proof-ticker { bottom: 100px; left: 24px; }
   footer { padding: 44px 40px 32px; }
   .hero-sub { font-size: 1.05rem; }
@@ -934,22 +938,22 @@ footer {
   background: rgba(6,6,10,.92);
   backdrop-filter: blur(20px);
   border-top: 1px solid var(--line2);
-  padding: 12px 16px;
+  padding: 10px 16px;
   display: flex; align-items: center; justify-content: space-between;
-  flex-direction: column; gap: 10px;
+  flex-direction: row; gap: 10px;
   transform: translateY(100%);
   transition: transform .4s var(--ease);
 }
-.sc-btn { width: 100%; text-align: center; }
 .sticky-cta.show { transform: translateY(0); }
 .sc-left { flex: 1; }
-.sc-title { font-family: 'Syne'; font-size: .88rem; font-weight: 700; margin-bottom: 2px; }
+.sc-title { font-family: 'Syne'; font-size: .72rem; font-weight: 700; margin-bottom: 2px; }
 .sc-sub { font-size: .68rem; color: var(--muted); display: none; }
-.sc-price { font-family: 'Syne'; font-size: 1.2rem; font-weight: 800; color: var(--a4); }
+.sc-price { font-family: 'Syne'; font-size: .9rem; font-weight: 800; color: var(--a4); }
 .sc-btn {
   background: linear-gradient(135deg,var(--a1),var(--a3));
-  color: #fff; padding: 13px 32px;
-  font-family: 'Syne'; font-size: .76rem; font-weight: 700;
+  color: #fff; padding: 10px 18px;
+  font-family: 'Syne'; font-size: .64rem; font-weight: 700;
+  flex-shrink: 0;
   letter-spacing: .04em; text-transform: uppercase;
   border: none; border-radius: 999px; cursor: pointer;
   box-shadow: 0 6px 24px var(--a-glow);
@@ -963,6 +967,7 @@ footer {
   display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
 }
 .wa-bubble {
+  display: none;
   background: var(--surface);
   border: 1px solid var(--line2);
   border-radius: 14px 14px 0 14px;
@@ -982,7 +987,7 @@ footer {
   text-decoration: none;
 }
 .wa-btn:hover { transform: scale(1.08); box-shadow: 0 10px 32px rgba(37,211,102,.5); }
-.wa-btn svg { width: 28px; height: 28px; fill: #fff; }
+.wa-btn svg { width: 22px; height: 22px; fill: #fff; }
 
 /* ── EXIT INTENT MODAL ── */
 .exit-overlay {
