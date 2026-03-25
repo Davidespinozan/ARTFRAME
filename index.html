@@ -276,19 +276,21 @@ nav {
 .mat-card {
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 24px; overflow: hidden;
+  border-radius: 18px; overflow: hidden;
   transition: all .35s var(--ease);
   position: relative;
+  display: flex; flex-direction: row;
 }
 .mat-card::before {
-  content: ''; position: absolute; inset: 0; border-radius: 24px;
+  content: ''; position: absolute; inset: 0; border-radius: 18px;
   background: linear-gradient(135deg, var(--accent-color, var(--a1)), transparent);
   opacity: 0; transition: opacity .35s;
 }
 .mat-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,.4); border-color: var(--line2); }
 .mat-card:hover::before { opacity: .06; }
 .mat-img {
-  height: 200px; position: relative; overflow: hidden;
+  width: 110px; min-height: 120px; flex-shrink: 0;
+  position: relative; overflow: hidden;
   display: flex; align-items: center; justify-content: center;
 }
 .mat-img-bg {
@@ -311,15 +313,15 @@ nav {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: radial-gradient(circle at 50% 60%, var(--mat-color, var(--a-glow)) 0%, transparent 65%);
 }
-.mat-body { padding: 24px; }
+.mat-body { padding: 16px; flex: 1; min-width: 0; }
 .mat-accent {
   display: inline-block; padding: 4px 12px;
   border-radius: 999px; font-size: .58rem; font-weight: 700;
   letter-spacing: .1em; text-transform: uppercase;
   margin-bottom: 12px;
 }
-.mat-name { font-family: 'Syne'; font-size: 1.05rem; font-weight: 800; margin-bottom: 10px; }
-.mat-desc { font-size: .76rem; line-height: 1.9; color: var(--dim); margin-bottom: 18px; }
+.mat-name { font-family: 'Syne'; font-size: .88rem; font-weight: 800; margin-bottom: 6px; }
+.mat-desc { font-size: .72rem; line-height: 1.8; color: var(--dim); margin-bottom: 12px; display: none; }
 .mat-specs { display: flex; gap: 8px; flex-wrap: wrap; }
 .mat-spec {
   background: var(--panel2); border: 1px solid var(--line);
@@ -764,6 +766,12 @@ footer {
   .gal-item.tall { grid-row: span 2; }
   .gal-item.wide { grid-column: span 2; }
   .materials-grid { grid-template-columns: 1fr 1fr; }
+  .mat-card { flex-direction: column; border-radius: 24px; }
+  .mat-card::before { border-radius: 24px; }
+  .mat-img { width: 100%; height: 200px; min-height: auto; }
+  .mat-body { padding: 24px; }
+  .mat-name { font-size: 1.05rem; margin-bottom: 10px; }
+  .mat-desc { display: block; margin-bottom: 18px; }
   .how-grid { grid-template-columns: 1fr 1fr; }
   .ft-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
   footer { padding: 40px 24px 28px; }
@@ -1215,10 +1223,6 @@ footer {
   font-size: .6rem; color: var(--dim);
 }
 .hero-badge-label { font-size: .6rem; color: var(--muted); }
-.hero-badge-green {
-  background: rgba(16,185,129,.1); border-color: rgba(16,185,129,.25);
-  color: #10B981;
-}
 
 /* ── PP SUBTOTAL ROW ── */
 .pp-row-subtotal {
@@ -1382,7 +1386,6 @@ footer {
   <div class="hero-badges">
     <span class="hero-badge-label">Pago seguro</span>
     <span class="hero-badge">🔒 Stripe · Visa · MC · AMEX · OXXO</span>
-    <span class="hero-badge hero-badge-green">✓ Devolución garantizada</span>
   </div>
   <div class="material-pills">
     <div class="mpill">
