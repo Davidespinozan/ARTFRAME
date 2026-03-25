@@ -1346,17 +1346,6 @@ footer {
 </div>
 
 
-<!-- SOCIAL PROOF TICKER -->
-<div class="proof-ticker" id="proofTicker">
-  <div class="pt-top">
-    <div class="pt-avatar" id="ptAvatar">😊</div>
-    <div>
-      <div class="pt-name" id="ptName">María G.</div>
-      <div class="pt-action" id="ptAction">ordenó un cuadro acrílico 60×80</div>
-    </div>
-  </div>
-  <div class="pt-time" id="ptTime">hace 3 minutos · Guadalajara, MX</div>
-</div>
 
 <!-- NAV -->
 <nav>
@@ -1393,7 +1382,6 @@ footer {
 
 <!-- HERO -->
 <section class="hero">
-  <div class="viewing-now"><div class="vn-dot"></div><span id="viewingCount">12</span> personas configurando su cuadro ahora</div>
   <div class="hero-eyebrow">
     <div class="hero-eyebrow-dot"></div>
     Arte impreso · Acrilico · Neón · Tela
@@ -2752,39 +2740,6 @@ setTimeout(() => {
     }, 5000);
   }
 }, 3000);
-
-// ── VIEWING NOW ──
-const _vEl = document.getElementById('viewingCount');
-if (_vEl) {
-  let _vBase = 8 + Math.floor(Math.random() * 10);
-  setInterval(() => {
-    _vBase = Math.max(5, Math.min(24, _vBase + (Math.random() > .5 ? 1 : -1)));
-    _vEl.textContent = _vBase;
-  }, 7000);
-}
-
-// ── SOCIAL PROOF TICKER ──
-const _PROOF = [
-  { name:'María G.', action:'ordenó un cuadro acrílico 60×80', time:'hace 3 min · Guadalajara', av:'👩' },
-  { name:'Carlos M.', action:'configuró un neón personalizado', time:'hace 7 min · Monterrey', av:'👨' },
-  { name:'Sofía R.', action:'pidió impresión en tela 40×60', time:'hace 12 min · CDMX', av:'👩‍🦱' },
-  { name:'Diego V.', action:'ordenó cuadro para su empresa', time:'hace 18 min · Guadalajara', av:'👨‍💼' },
-  { name:'Valentina C.', action:'configuró cuadro 80×120 tela', time:'hace 24 min · Puebla', av:'👩‍💼' },
-  { name:'Ana L.', action:'envió orden a Madrid, España', time:'hace 31 min · Internacional', av:'✈️' },
-];
-let _pIdx = 0;
-function _showTicker() {
-  const tk = document.getElementById('proofTicker');
-  if (!tk) return;
-  const ev = _PROOF[_pIdx++ % _PROOF.length];
-  document.getElementById('ptAvatar').textContent = ev.av;
-  document.getElementById('ptName').textContent = ev.name;
-  document.getElementById('ptAction').textContent = ev.action;
-  document.getElementById('ptTime').textContent = ev.time;
-  tk.classList.add('show');
-  setTimeout(() => tk.classList.remove('show'), 4500);
-}
-setTimeout(() => { _showTicker(); setInterval(_showTicker, 14000); }, 8000);
 
 // ── EXIT INTENT ──
 let _exitShown = false;
