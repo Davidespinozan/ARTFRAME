@@ -451,10 +451,11 @@ nav {
 .type-cards { display: grid; grid-template-columns: 1fr; gap: 10px; }
 .type-card {
   background: var(--panel2); border: 1.5px solid var(--line);
-  border-radius: 16px; padding: 20px 16px;
+  border-radius: 16px; padding: 0;
   text-align: center; cursor: pointer;
   transition: all .25s var(--ease); position: relative;
-  overflow: hidden;
+  overflow: hidden; min-height: 160px;
+  display: flex; flex-direction: column;
 }
 .type-card::after {
   content: ''; position: absolute; inset: 0; border-radius: 14px;
@@ -473,10 +474,19 @@ nav {
 }
 .type-card.sel .tc-check { display: flex; }
 .tc-icon { font-size: 2rem; margin-bottom: 10px; display: block; position: relative; z-index: 1; }
-.tc-icon-img {
-  width: 56px; height: 56px; border-radius: 12px;
-  object-fit: cover; display: block; margin: 0 auto 10px;
-  position: relative; z-index: 1;
+.tc-bg-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  filter: brightness(.45) saturate(.8);
+  transition: transform .8s ease, filter .6s;
+  z-index: 0;
+}
+.type-card:hover .tc-bg-img {
+  transform: scale(1.06);
+  filter: brightness(.6) saturate(1);
+}
+.type-card.sel .tc-bg-img {
+  filter: brightness(.55) saturate(1.1);
 }
 .tc-name { font-family: 'Syne'; font-size: .76rem; font-weight: 700; display: block; margin-bottom: 4px; position: relative; z-index: 1; }
 .tc-rate { font-size: .62rem; color: var(--muted); display: block; position: relative; z-index: 1; }
@@ -1589,21 +1599,27 @@ footer {
             <div class="type-cards">
               <div class="type-card" onclick="selectType(this,'acrilico')" style="--tc:rgba(6,182,212,.3)">
                 <div class="tc-check">✓</div>
-                <img class="tc-icon-img" src="https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/icono%20Acrilico.jpg" alt="Acrílico">
-                <span class="tc-name">Acrílico</span>
-                <span class="tc-rate" id="rate-acrilico">$0.85/cm²</span>
+                <img class="tc-bg-img" src="https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/icono%20Acrilico.jpg" alt="Acrílico">
+                <div style="position:relative;z-index:1;padding:20px 16px;display:flex;flex-direction:column;align-items:center;flex:1;justify-content:flex-end;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 100%)">
+                  <span class="tc-name">Acrílico</span>
+                  <span class="tc-rate" id="rate-acrilico">$0.85/cm²</span>
+                </div>
               </div>
               <div class="type-card" onclick="selectType(this,'tela')" style="--tc:rgba(245,158,11,.3)">
                 <div class="tc-check">✓</div>
-                <img class="tc-icon-img" src="https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/icono%20Tela.jpg" alt="Tela">
-                <span class="tc-name">Tela</span>
-                <span class="tc-rate" id="rate-tela">$0.55/cm²</span>
+                <img class="tc-bg-img" src="https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/icono%20Tela.jpg" alt="Tela">
+                <div style="position:relative;z-index:1;padding:20px 16px;display:flex;flex-direction:column;align-items:center;flex:1;justify-content:flex-end;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 100%)">
+                  <span class="tc-name">Tela</span>
+                  <span class="tc-rate" id="rate-tela">$0.55/cm²</span>
+                </div>
               </div>
               <div class="type-card" onclick="selectType(this,'neon')" style="--tc:rgba(16,185,129,.3)">
                 <div class="tc-check">✓</div>
-                <img class="tc-icon-img" src="https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/icono%20Neon.jpg" alt="Neón">
-                <span class="tc-name">Neón</span>
-                <span class="tc-rate" id="rate-neon">$1.20/cm²</span>
+                <img class="tc-bg-img" src="https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/icono%20Neon.jpg" alt="Neón">
+                <div style="position:relative;z-index:1;padding:20px 16px;display:flex;flex-direction:column;align-items:center;flex:1;justify-content:flex-end;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 100%)">
+                  <span class="tc-name">Neón</span>
+                  <span class="tc-rate" id="rate-neon">$1.20/cm²</span>
+                </div>
               </div>
             </div>
           </div>
