@@ -1,0 +1,2627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ArtFrame Studio — Cuadros Personalizados | Acrílico · Tela · Neón</title>
+<meta name="description" content="Diseña tu cuadro personalizado en minutos. Acrílico encapsulado, impresión en tela y neón LED. Envíos a México y todo el mundo. Precio al instante.">
+<meta property="og:title" content="ArtFrame Studio — Cuadros Personalizados">
+<meta property="og:description" content="Configura tu cuadro, sube tu diseño y recibe precio al instante. Materiales premium, producción profesional, entrega a domicilio.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#06060A">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════ */
+:root {
+  --void:      #06060A;
+  --deep:      #0C0C12;
+  --surface:   #111118;
+  --panel:     rgba(255,255,255,.042);
+  --panel2:    rgba(255,255,255,.072);
+  --panel3:    rgba(255,255,255,.10);
+  --line:      rgba(255,255,255,.07);
+  --line2:     rgba(255,255,255,.13);
+  --white:     #FFFFFF;
+  --dim:       rgba(255,255,255,.48);
+  --muted:     rgba(255,255,255,.26);
+  --faint:     rgba(255,255,255,.12);
+
+  /* Accent — electric violet */
+  --a1: #6D28D9;
+  --a2: #7C3AED;
+  --a3: #8B5CF6;
+  --a4: #A78BFA;
+  --a-glow: rgba(109,40,217,.4);
+  --a-light: rgba(139,92,246,.15);
+
+  /* Product accents */
+  --acrylic-c: #06B6D4;
+  --tela-c:    #F59E0B;
+  --neon-c:    #10B981;
+
+  --ease:  cubic-bezier(.16,1,.3,1);
+  --ease2: cubic-bezier(.4,0,.2,1);
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--void);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── AMBIENT BACKGROUND ── */
+.ambient {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  overflow: hidden;
+}
+.orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(80px);
+  animation: orb-float 12s ease-in-out infinite;
+}
+.orb1 { width: 600px; height: 600px; top: -200px; left: -100px; background: rgba(109,40,217,.18); animation-delay: 0s; }
+.orb2 { width: 500px; height: 500px; top: 10%; right: -150px; background: rgba(139,92,246,.12); animation-delay: -4s; }
+.orb3 { width: 400px; height: 400px; bottom: 20%; left: 20%; background: rgba(6,182,212,.08); animation-delay: -8s; }
+@keyframes orb-float {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(30px,-40px) scale(1.05); }
+  66% { transform: translate(-20px,20px) scale(.97); }
+}
+.noise {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .025; mix-blend-mode: overlay;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--a2); border-radius: 999px; }
+
+/* ═══════════════════════════════════
+   NAV
+═══════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  height: 62px; display: flex; align-items: center;
+  padding: 0 56px;
+  background: rgba(6,6,10,.7);
+  backdrop-filter: blur(28px) saturate(180%);
+  border-bottom: 1px solid var(--line);
+}
+.n-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Syne'; font-size: 1.05rem; font-weight: 800;
+  letter-spacing: -.02em; color: var(--white);
+  text-decoration: none;
+}
+.n-logo-mark {
+  width: 30px; height: 30px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--a1), var(--a3));
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; box-shadow: 0 4px 16px var(--a-glow);
+}
+.n-links { display: flex; gap: 32px; margin: 0 auto; }
+.n-links a {
+  font-size: .74rem; font-weight: 500; color: var(--muted);
+  text-decoration: none; letter-spacing: .02em;
+  transition: color .2s; position: relative; padding-bottom: 2px;
+}
+.n-links a::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 1px; background: var(--a3);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .3s var(--ease);
+}
+.n-links a:hover { color: var(--white); }
+.n-links a:hover::after { transform: scaleX(1); }
+.n-actions { display: flex; gap: 10px; align-items: center; }
+.n-btn-ghost {
+  background: var(--panel); border: 1px solid var(--line2);
+  color: var(--dim); padding: 8px 18px;
+  font-family: 'DM Sans'; font-size: .72rem; font-weight: 500;
+  border-radius: 999px; cursor: pointer;
+  transition: all .2s;
+}
+.n-btn-ghost:hover { background: var(--panel2); color: var(--white); }
+.n-btn-primary {
+  background: linear-gradient(135deg, var(--a1), var(--a3));
+  color: var(--white); padding: 9px 22px;
+  font-family: 'DM Sans'; font-size: .72rem; font-weight: 600;
+  border: none; border-radius: 999px; cursor: pointer;
+  box-shadow: 0 4px 20px var(--a-glow);
+  transition: all .22s var(--ease);
+}
+.n-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 28px var(--a-glow); }
+
+/* ═══════════════════════════════════
+   HERO
+═══════════════════════════════════ */
+.hero {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 100px 24px 60px;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(109,40,217,.15);
+  border: 1px solid rgba(139,92,246,.3);
+  border-radius: 999px; padding: 6px 18px;
+  font-size: .66rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--a4); margin-bottom: 32px;
+  opacity: 0; animation: fu .7s var(--ease) .1s forwards;
+}
+.hero-eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--a3); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+@keyframes fu { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
+
+.hero-h1 {
+  font-family: 'Syne';
+  font-size: clamp(3.2rem, 8vw, 7.5rem);
+  font-weight: 800; line-height: .92;
+  letter-spacing: -.03em; color: var(--white);
+  max-width: 1000px; margin-bottom: 28px;
+  opacity: 0; animation: fu .9s var(--ease) .2s forwards;
+}
+.hero-h1 .line2 { display: block; }
+.grad-text {
+  background: linear-gradient(135deg, var(--a4) 0%, #E879F9 40%, var(--acrylic-c) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+.hero-sub {
+  font-size: 1.05rem; line-height: 1.82;
+  color: var(--dim); max-width: 580px;
+  margin-bottom: 48px; font-weight: 300;
+  opacity: 0; animation: fu .9s var(--ease) .32s forwards;
+}
+
+.hero-cta {
+  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 80px;
+  opacity: 0; animation: fu .9s var(--ease) .44s forwards;
+}
+
+/* Buttons */
+.btn-grad {
+  background: linear-gradient(135deg, var(--a1), var(--a3));
+  color: var(--white); padding: 16px 40px;
+  font-family: 'Syne'; font-size: .82rem; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase;
+  border: none; border-radius: 999px; cursor: pointer;
+  box-shadow: 0 8px 32px var(--a-glow);
+  transition: all .25s var(--ease);
+  position: relative; overflow: hidden;
+}
+.btn-grad::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,0); transition: background .2s;
+}
+.btn-grad:hover::after { background: rgba(255,255,255,.1); }
+.btn-grad:hover { transform: translateY(-2px); box-shadow: 0 14px 44px var(--a-glow); }
+.btn-ghost {
+  background: var(--panel2); border: 1px solid var(--line2);
+  color: var(--white); padding: 15px 36px;
+  font-family: 'DM Sans'; font-size: .82rem; font-weight: 500;
+  border-radius: 999px; cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: all .22s var(--ease);
+}
+.btn-ghost:hover { background: var(--panel3); transform: translateY(-2px); }
+
+/* Material pills */
+.material-pills {
+  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+  opacity: 0; animation: fu .9s var(--ease) .56s forwards;
+}
+.mpill {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px; padding: 14px 20px;
+  font-size: .78rem; font-weight: 500; color: var(--dim);
+  transition: all .25s var(--ease); cursor: default;
+}
+.mpill:hover { background: var(--panel2); border-color: var(--line2); transform: translateY(-2px); color: var(--white); }
+.mpill-ico { font-size: 1.2rem; }
+.mpill-name { font-family: 'Syne'; font-size: .72rem; font-weight: 700; }
+.mpill-desc { font-size: .62rem; color: var(--muted); display: block; }
+
+/* ═══════════════════════════════════
+   SECTION COMMONS
+═══════════════════════════════════ */
+.section {
+  position: relative; z-index: 1;
+  padding: 100px 56px;
+  max-width: 1240px; margin: 0 auto;
+}
+.section-tag {
+  font-size: .6rem; letter-spacing: .38em; text-transform: uppercase;
+  color: var(--a4); font-weight: 600; margin-bottom: 14px; display: block;
+}
+.section-h {
+  font-family: 'Syne';
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800; letter-spacing: -.025em; line-height: 1.08;
+  margin-bottom: 16px;
+}
+.section-p { font-size: .88rem; line-height: 1.88; color: var(--dim); max-width: 540px; }
+.section-line {
+  height: 1px; background: var(--line);
+  position: relative; z-index: 1;
+  margin: 0 56px;
+}
+
+/* ═══════════════════════════════════
+   MATERIALS SECTION
+═══════════════════════════════════ */
+.materials-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 16px; margin-top: 52px;
+}
+.mat-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px; overflow: hidden;
+  transition: all .35s var(--ease);
+  position: relative;
+}
+.mat-card::before {
+  content: ''; position: absolute; inset: 0; border-radius: 24px;
+  background: linear-gradient(135deg, var(--accent-color, var(--a1)), transparent);
+  opacity: 0; transition: opacity .35s;
+}
+.mat-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,.4); border-color: var(--line2); }
+.mat-card:hover::before { opacity: .06; }
+.mat-img {
+  height: 200px; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.mat-img-bg {
+  position: absolute; inset: 0;
+  background: var(--surface);
+}
+.mat-img-icon { font-size: 4rem; position: relative; z-index: 1; }
+.mat-img-glow {
+  position: absolute; inset: 0; z-index: 0;
+  background: radial-gradient(circle at 50% 60%, var(--mat-color, var(--a-glow)) 0%, transparent 65%);
+}
+.mat-body { padding: 24px; }
+.mat-accent {
+  display: inline-block; padding: 4px 12px;
+  border-radius: 999px; font-size: .58rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.mat-name { font-family: 'Syne'; font-size: 1.05rem; font-weight: 800; margin-bottom: 10px; }
+.mat-desc { font-size: .76rem; line-height: 1.9; color: var(--dim); margin-bottom: 18px; }
+.mat-specs { display: flex; gap: 8px; flex-wrap: wrap; }
+.mat-spec {
+  background: var(--panel2); border: 1px solid var(--line);
+  border-radius: 8px; padding: 5px 10px;
+  font-size: .6rem; color: var(--muted); font-weight: 500;
+}
+
+/* ═══════════════════════════════════
+   GALLERY SECTION
+═══════════════════════════════════ */
+.gallery-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 36px;
+}
+.gallery-cats { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+.cat-btn {
+  padding: 7px 18px;
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 999px; font-size: .7rem; font-weight: 600;
+  color: var(--muted); cursor: pointer;
+  transition: all .2s;
+}
+.cat-btn:hover { color: var(--white); border-color: var(--line2); }
+.cat-btn.active {
+  background: var(--a-light); border-color: var(--a3); color: var(--a4);
+}
+.gallery-masonry {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.gal-item {
+  border-radius: 16px; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--line);
+  position: relative; cursor: pointer;
+  transition: all .3s var(--ease);
+}
+.gal-item:hover { transform: scale(1.02); box-shadow: 0 16px 48px rgba(0,0,0,.4); border-color: var(--a3); }
+.gal-item.tall { grid-row: span 2; }
+.gal-item.wide { grid-column: span 2; }
+.gal-ph {
+  width: 100%; height: 100%; min-height: 180px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+.gal-ph-icon { font-size: 2.5rem; margin-bottom: 10px; opacity: .7; }
+.gal-ph-label { font-size: .68rem; color: var(--muted); font-weight: 500; text-align: center; }
+.gal-overlay {
+  position: absolute; inset: 0;
+  background: rgba(6,6,10,.85);
+  backdrop-filter: blur(4px);
+  opacity: 0; transition: opacity .3s;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 12px;
+  padding: 20px; text-align: center;
+}
+.gal-item:hover .gal-overlay { opacity: 1; }
+.gal-overlay-title { font-family: 'Syne'; font-size: .88rem; font-weight: 700; }
+.gal-overlay-sub { font-size: .7rem; color: var(--dim); }
+.gal-overlay-btn {
+  background: var(--a2); color: var(--white);
+  padding: 9px 22px; border-radius: 999px;
+  font-size: .68rem; font-weight: 600; border: none; cursor: pointer;
+  transition: all .2s;
+}
+.gal-overlay-btn:hover { background: var(--a3); }
+.gal-type-badge {
+  position: absolute; top: 10px; left: 10px;
+  padding: 4px 10px; border-radius: 999px;
+  font-size: .56rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════
+   CONFIGURATOR
+═══════════════════════════════════ */
+.config-wrapper {
+  position: relative; z-index: 1;
+  background: var(--deep);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 80px 56px 100px;
+}
+.config-inner { max-width: 1240px; margin: 0 auto; }
+.config-intro { margin-bottom: 56px; }
+.config-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 28px; align-items: start;
+}
+
+/* Steps */
+.steps-list { display: flex; flex-direction: column; gap: 16px; }
+.step {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px; overflow: hidden;
+  transition: border-color .3s;
+}
+.step.active { border-color: rgba(139,92,246,.4); }
+.step-hd {
+  display: flex; align-items: center; gap: 14px;
+  padding: 22px 24px;
+}
+.step-num {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--a1), var(--a3));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne'; font-size: .74rem; font-weight: 800;
+  color: #fff; flex-shrink: 0;
+  box-shadow: 0 4px 14px var(--a-glow);
+}
+.step-hd-text { flex: 1; }
+.step-hd-title { font-family: 'Syne'; font-size: .88rem; font-weight: 700; }
+.step-hd-hint { font-size: .68rem; color: var(--muted); margin-top: 2px; }
+.step-badge {
+  font-size: .6rem; font-weight: 600; color: var(--a4);
+  background: var(--a-light); border: 1px solid rgba(139,92,246,.3);
+  padding: 3px 10px; border-radius: 999px;
+  opacity: 0; transition: opacity .3s;
+}
+.step.done .step-badge { opacity: 1; }
+.step-body { padding: 0 24px 24px; }
+
+/* Type selector */
+.type-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.type-card {
+  background: var(--panel2); border: 1.5px solid var(--line);
+  border-radius: 16px; padding: 20px 16px;
+  text-align: center; cursor: pointer;
+  transition: all .25s var(--ease); position: relative;
+  overflow: hidden;
+}
+.type-card::after {
+  content: ''; position: absolute; inset: 0; border-radius: 14px;
+  background: linear-gradient(135deg, var(--tc, var(--a1)), transparent);
+  opacity: 0; transition: opacity .3s;
+}
+.type-card:hover { border-color: var(--line2); transform: translateY(-2px); }
+.type-card.sel { border-color: var(--a3); }
+.type-card.sel::after { opacity: .08; }
+.tc-check {
+  position: absolute; top: 8px; right: 8px; z-index: 2;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--a2); color: #fff;
+  font-size: .6rem; display: none;
+  align-items: center; justify-content: center;
+}
+.type-card.sel .tc-check { display: flex; }
+.tc-icon { font-size: 2rem; margin-bottom: 10px; display: block; position: relative; z-index: 1; }
+.tc-name { font-family: 'Syne'; font-size: .76rem; font-weight: 700; display: block; margin-bottom: 4px; position: relative; z-index: 1; }
+.tc-rate { font-size: .62rem; color: var(--muted); display: block; position: relative; z-index: 1; }
+
+/* Size */
+.size-mode-tabs { display: flex; gap: 6px; margin-bottom: 18px; }
+.smt {
+  padding: 7px 16px; border-radius: 999px;
+  background: var(--panel); border: 1px solid var(--line);
+  font-size: .68rem; font-weight: 600; color: var(--muted);
+  cursor: pointer; transition: all .2s;
+}
+.smt.active { background: var(--a2); border-color: var(--a2); color: #fff; }
+.preset-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+.sz-btn {
+  background: var(--panel2); border: 1.5px solid var(--line);
+  border-radius: 12px; padding: 12px 8px; text-align: center;
+  cursor: pointer; transition: all .2s;
+}
+.sz-btn:hover { border-color: var(--line2); }
+.sz-btn.sel { border-color: var(--a3); background: var(--a-light); }
+.sz-label { font-family: 'Syne'; font-size: .7rem; font-weight: 700; display: block; }
+.sz-cm { font-size: .58rem; color: var(--muted); display: block; margin-top: 2px; }
+.custom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.inp-wrap label { display: block; font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.inp-wrap input {
+  width: 100%; background: var(--panel2); border: 1px solid var(--line);
+  border-radius: 10px; padding: 12px 14px;
+  color: var(--white); font-family: 'DM Sans'; font-size: .84rem;
+  outline: none; transition: border-color .2s;
+}
+.inp-wrap input::placeholder { color: var(--muted); }
+.inp-wrap input:focus { border-color: var(--a3); box-shadow: 0 0 0 3px rgba(139,92,246,.15); }
+
+/* Design */
+.design-toggle { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.design-toggle-label { font-size: .76rem; color: var(--dim); }
+.toggle {
+  position: relative; width: 44px; height: 24px;
+  background: var(--panel2); border: 1px solid var(--line2);
+  border-radius: 999px; cursor: pointer; transition: background .2s;
+}
+.toggle.on { background: var(--a2); border-color: var(--a2); }
+.toggle::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 16px; height: 16px; border-radius: 50%; background: #fff;
+  transition: transform .22s var(--spring), box-shadow .2s;
+}
+.toggle.on::after { transform: translateX(20px); box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+
+.dropzone {
+  border: 2px dashed var(--line2); border-radius: 18px;
+  padding: 40px 24px; text-align: center; cursor: pointer;
+  transition: all .25s var(--ease);
+}
+.dropzone:hover, .dropzone.drag { border-color: var(--a3); background: var(--a-light); }
+.dz-icon { font-size: 2.2rem; margin-bottom: 14px; opacity: .7; }
+.dz-title { font-family: 'Syne'; font-size: .88rem; font-weight: 700; margin-bottom: 6px; }
+.dz-sub { font-size: .72rem; color: var(--muted); }
+.dz-fmt { font-size: .62rem; color: var(--faint); margin-top: 8px; }
+.upload-preview { display: none; position: relative; }
+.upload-preview img { width: 100%; border-radius: 14px; display: block; max-height: 180px; object-fit: contain; background: var(--surface); }
+.upload-clear {
+  position: absolute; top: 8px; right: 8px;
+  background: rgba(0,0,0,.75); border: none; border-radius: 999px;
+  width: 28px; height: 28px; color: #fff; font-size: .8rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background .2s;
+}
+.upload-clear:hover { background: #dc2626; }
+input[type=file] { display: none; }
+
+.des-gallery { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+.dg-item {
+  aspect-ratio: 1; border-radius: 10px; overflow: hidden;
+  border: 2px solid transparent; cursor: pointer;
+  transition: all .2s; background: var(--surface);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 4px;
+}
+.dg-item:hover { border-color: var(--line2); transform: scale(1.04); }
+.dg-item.sel { border-color: var(--a3); box-shadow: 0 0 0 1px var(--a3); }
+.dg-item span { font-size: 1.4rem; }
+.dg-item small { font-size: .52rem; color: var(--muted); }
+
+/* Form */
+.form-fields { display: flex; flex-direction: column; gap: 14px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field label { display: block; font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.field input, .field select, .field textarea {
+  width: 100%; background: var(--panel2); border: 1px solid var(--line);
+  border-radius: 12px; padding: 12px 16px;
+  color: var(--white); font-family: 'DM Sans'; font-size: .84rem;
+  outline: none; transition: all .2s;
+}
+.field input::placeholder, .field textarea::placeholder { color: var(--muted); }
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--a3); box-shadow: 0 0 0 3px rgba(139,92,246,.15);
+}
+.field select { appearance: none; cursor: pointer; }
+.field textarea { resize: none; height: 88px; }
+
+/* ── PRICE PANEL ── */
+.price-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px; overflow: hidden;
+  position: sticky; top: 80px;
+}
+.pp-preview {
+  aspect-ratio: 4/3; background: var(--void);
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  border-bottom: 1px solid var(--line);
+}
+.pp-preview-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(109,40,217,.12) 0%, rgba(6,182,212,.08) 100%);
+}
+.pp-ph { text-align: center; position: relative; z-index: 1; }
+.pp-ph-icon { font-size: 2.8rem; margin-bottom: 10px; opacity: .4; }
+.pp-ph-text { font-size: .72rem; color: var(--muted); }
+.pp-preview img { width:100%; height:100%; object-fit:contain; display:block; position:relative; z-index:1; }
+.pp-canvas-frame {
+  position: absolute; inset: 16px; z-index: 2;
+  border: 2px solid rgba(255,255,255,.08);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+}
+.pp-preview-badge {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+  background: rgba(6,6,10,.8); backdrop-filter: blur(8px);
+  padding: 8px 14px; font-size: .6rem; color: var(--muted);
+  border-top: 1px solid var(--line); text-align: center;
+}
+
+.pp-body { padding: 24px; }
+.pp-title { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
+
+.pp-rows { display: flex; flex-direction: column; gap: 0; margin-bottom: 20px; }
+.pp-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid var(--line);
+  font-size: .78rem;
+}
+.pp-row:last-child { border-bottom: none; }
+.pp-row-k { color: var(--muted); }
+.pp-row-v { font-weight: 600; }
+.pp-row-v.empty { color: var(--faint); font-weight: 400; font-style: italic; font-size: .72rem; }
+
+.pp-price {
+  background: linear-gradient(135deg, rgba(109,40,217,.2), rgba(139,92,246,.1));
+  border: 1px solid rgba(139,92,246,.3);
+  border-radius: 16px; padding: 18px 20px;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 18px;
+}
+.pp-price-label { font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--a4); }
+.pp-price-val {
+  font-family: 'Syne'; font-size: 1.8rem; font-weight: 800;
+  background: linear-gradient(135deg, var(--a4), #E879F9);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.pp-price-empty { font-size: .78rem; color: var(--muted); font-style: italic; }
+
+.btn-order {
+  width: 100%;
+  background: linear-gradient(135deg, var(--a1), var(--a3));
+  color: var(--white); padding: 17px;
+  font-family: 'Syne'; font-size: .78rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  border: none; border-radius: 14px; cursor: pointer;
+  box-shadow: 0 8px 30px var(--a-glow);
+  transition: all .25s var(--ease);
+  position: relative; overflow: hidden;
+}
+.btn-order::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,0); transition: background .2s;
+}
+.btn-order:hover::after { background: rgba(255,255,255,.08); }
+.btn-order:hover { transform: translateY(-2px); box-shadow: 0 14px 44px var(--a-glow); }
+.btn-order:disabled { opacity: .38; cursor: not-allowed; transform: none; box-shadow: none; }
+.pp-note { font-size: .62rem; color: var(--muted); text-align: center; margin-top: 12px; line-height: 1.65; }
+
+/* ═══════════════════════════════════
+   HOW IT WORKS
+═══════════════════════════════════ */
+.how-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-top: 52px; }
+.how-card {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 20px; padding: 28px 24px;
+  transition: all .3s var(--ease);
+}
+.how-card:hover { border-color: var(--line2); transform: translateY(-4px); background: var(--panel2); }
+.how-num {
+  font-family: 'Syne'; font-size: 3rem; font-weight: 800;
+  background: linear-gradient(135deg, var(--a3), var(--a4));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  line-height: 1; margin-bottom: 16px; letter-spacing: -.04em;
+}
+.how-title { font-family: 'Syne'; font-size: .88rem; font-weight: 700; margin-bottom: 8px; }
+.how-desc { font-size: .74rem; line-height: 1.85; color: var(--dim); }
+
+/* ═══════════════════════════════════
+   ORDER MODAL
+═══════════════════════════════════ */
+.overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(6,6,10,.85); backdrop-filter: blur(20px);
+  opacity: 0; pointer-events: none; transition: opacity .3s;
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+}
+.overlay.open { opacity: 1; pointer-events: all; }
+.modal-box {
+  background: var(--surface); border: 1px solid var(--line2);
+  border-radius: 28px; padding: 52px 44px;
+  max-width: 480px; width: 100%; text-align: center;
+  transform: scale(.94) translateY(20px);
+  transition: transform .4s var(--ease);
+  position: relative;
+}
+.overlay.open .modal-box { transform: none; }
+.modal-glow {
+  position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, var(--a-glow), transparent 70%);
+  pointer-events: none;
+}
+.modal-icon {
+  width: 80px; height: 80px; border-radius: 20px;
+  background: linear-gradient(135deg, var(--a1), var(--a3));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.2rem; margin: 0 auto 28px;
+  box-shadow: 0 12px 40px var(--a-glow);
+}
+.modal-h { font-family: 'Syne'; font-size: 1.8rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: 14px; }
+.modal-p { font-size: .84rem; line-height: 1.85; color: var(--dim); margin-bottom: 6px; }
+.modal-id {
+  background: var(--panel2); border: 1px solid var(--line2);
+  border-radius: 12px; padding: 14px 20px; margin: 24px 0;
+  font-family: 'Syne'; font-size: .84rem; font-weight: 700; color: var(--a4);
+  letter-spacing: .1em;
+}
+.modal-close {
+  background: var(--panel2); border: 1px solid var(--line);
+  color: var(--white); border-radius: 999px;
+  padding: 12px 36px; font-family: 'DM Sans'; font-size: .8rem; font-weight: 500;
+  cursor: pointer; transition: all .2s; margin-top: 6px;
+}
+.modal-close:hover { background: var(--panel3); }
+
+/* ═══════════════════════════════════
+   FOOTER
+═══════════════════════════════════ */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--line);
+  padding: 48px 56px 36px;
+}
+.ft-inner { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+.ft-brand {}
+.ft-logo { display: flex; align-items: center; gap: 10px; font-family: 'Syne'; font-size: 1rem; font-weight: 800; margin-bottom: 14px; }
+.ft-logo-mark { width: 28px; height: 28px; border-radius: 7px; background: linear-gradient(135deg, var(--a1), var(--a3)); display: flex; align-items: center; justify-content: center; font-size: .7rem; }
+.ft-brand-desc { font-size: .74rem; line-height: 1.85; color: var(--muted); max-width: 200px; }
+.ft-col h5 { font-family: 'Syne'; font-size: .6rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--a4); margin-bottom: 16px; }
+.ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.ft-col a { font-size: .74rem; color: var(--muted); text-decoration: none; transition: color .2s; }
+.ft-col a:hover { color: var(--white); }
+.ft-bottom { max-width: 1240px; margin: 0 auto; border-top: 1px solid var(--line); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.ft-copy { font-size: .66rem; color: var(--muted); }
+
+/* ═══════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════ */
+@media(max-width:1100px){
+  .ship-grid { grid-template-columns: 1fr !important; }
+  .policy-grid { grid-template-columns: 1fr 1fr !important; }
+
+  nav { padding: 0 24px; } .n-links { display: none; }
+  .section { padding: 72px 24px; }
+  .section-line { margin: 0 24px; }
+  .config-wrapper { padding: 64px 24px 80px; }
+  .config-layout { grid-template-columns: 1fr; }
+  .price-panel { position: static; }
+  .materials-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-masonry { grid-template-columns: repeat(3,1fr); }
+  .how-grid { grid-template-columns: 1fr 1fr; }
+  .ft-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+  footer { padding: 40px 24px 28px; }
+  .ft-bottom { flex-direction: column; text-align: center; }
+}
+@media(max-width:640px){
+  .policy-grid { grid-template-columns: 1fr !important; }
+
+  .hero-h1 { font-size: 2.8rem; }
+  .material-pills { flex-direction: column; align-items: center; }
+  .materials-grid, .how-grid { grid-template-columns: 1fr; }
+  .gallery-masonry { grid-template-columns: 1fr 1fr; }
+  .gal-item.wide { grid-column: span 1; }
+  .type-cards { grid-template-columns: 1fr; }
+  .preset-grid { grid-template-columns: 1fr 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .des-gallery { grid-template-columns: repeat(3,1fr); }
+  .ft-inner { grid-template-columns: 1fr; }
+  .hero-cta { flex-direction: column; align-items: center; }
+}
+
+/* ═══════════════════════════════════
+   CONVERSION ELEMENTS
+═══════════════════════════════════ */
+
+/* ── TRUST BAR ── */
+.trust-bar {
+  position: relative; z-index: 1;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 56px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 40px; flex-wrap: wrap;
+  overflow: hidden;
+}
+.trust-bar::before {
+  content: '';
+  position: absolute; top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(139,92,246,.06), transparent);
+  animation: shimmer 4s ease-in-out infinite;
+}
+@keyframes shimmer { to { left: 140%; } }
+.tb-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: .68rem; font-weight: 500; color: var(--dim);
+  white-space: nowrap;
+}
+.tb-ico { font-size: .9rem; }
+.tb-item strong { color: var(--white); font-weight: 700; }
+
+/* ── SOCIAL PROOF TICKER ── */
+.proof-ticker {
+  position: fixed; bottom: 100px; left: 24px; z-index: 800;
+  background: var(--surface);
+  border: 1px solid var(--line2);
+  border-left: 3px solid var(--a3);
+  border-radius: 14px; padding: 12px 16px;
+  max-width: 280px;
+  transform: translateX(-120%);
+  transition: transform .5s var(--ease);
+  box-shadow: 0 8px 32px rgba(0,0,0,.4);
+}
+.proof-ticker.show { transform: translateX(0); }
+.pt-top { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.pt-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg,var(--a1),var(--a3)); display: flex; align-items: center; justify-content: center; font-size: .8rem; flex-shrink: 0; }
+.pt-name { font-size: .74rem; font-weight: 700; }
+.pt-action { font-size: .68rem; color: var(--dim); }
+.pt-time { font-size: .6rem; color: var(--muted); }
+
+/* ── VIEWING NOW ── */
+.viewing-now {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(16,185,129,.1);
+  border: 1px solid rgba(16,185,129,.25);
+  border-radius: 999px; padding: 5px 14px;
+  font-size: .64rem; font-weight: 600; color: #10B981;
+  margin-bottom: 20px;
+}
+.vn-dot { width: 6px; height: 6px; border-radius: 50%; background: #10B981; animation: pulse 1.5s infinite; }
+
+/* ── STICKY CTA BAR (shows on scroll) ── */
+.sticky-cta {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 850;
+  background: rgba(6,6,10,.92);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--line2);
+  padding: 14px 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px;
+  transform: translateY(100%);
+  transition: transform .4s var(--ease);
+}
+.sticky-cta.show { transform: translateY(0); }
+.sc-left { flex: 1; }
+.sc-title { font-family: 'Syne'; font-size: .88rem; font-weight: 700; margin-bottom: 2px; }
+.sc-sub { font-size: .68rem; color: var(--muted); }
+.sc-price { font-family: 'Syne'; font-size: 1.2rem; font-weight: 800; color: var(--a4); }
+.sc-btn {
+  background: linear-gradient(135deg,var(--a1),var(--a3));
+  color: #fff; padding: 13px 32px;
+  font-family: 'Syne'; font-size: .76rem; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase;
+  border: none; border-radius: 999px; cursor: pointer;
+  box-shadow: 0 6px 24px var(--a-glow);
+  transition: all .22s var(--ease); white-space: nowrap;
+}
+.sc-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 32px var(--a-glow); }
+
+/* ── WA BUTTON ── */
+.wa-float {
+  position: fixed; bottom: 28px; right: 28px; z-index: 849;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+}
+.wa-bubble {
+  background: var(--surface);
+  border: 1px solid var(--line2);
+  border-radius: 14px 14px 0 14px;
+  padding: 10px 16px;
+  font-size: .72rem; color: var(--dim);
+  max-width: 200px; text-align: right;
+  animation: bubble-in .4s var(--ease);
+  box-shadow: 0 4px 20px rgba(0,0,0,.3);
+}
+@keyframes bubble-in { from{opacity:0;transform:scale(.8) translateY(10px)} to{opacity:1;transform:none} }
+.wa-btn {
+  width: 58px; height: 58px; border-radius: 999px;
+  background: #25D366; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 24px rgba(37,211,102,.4);
+  transition: all .22s var(--ease);
+  text-decoration: none;
+}
+.wa-btn:hover { transform: scale(1.08); box-shadow: 0 10px 32px rgba(37,211,102,.5); }
+.wa-btn svg { width: 28px; height: 28px; fill: #fff; }
+
+/* ── EXIT INTENT MODAL ── */
+.exit-overlay {
+  position: fixed; inset: 0; z-index: 1100;
+  background: rgba(6,6,10,.9);
+  backdrop-filter: blur(20px);
+  opacity: 0; pointer-events: none; transition: opacity .35s;
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+}
+.exit-overlay.open { opacity: 1; pointer-events: all; }
+.exit-modal {
+  background: var(--surface);
+  border: 1px solid var(--line2);
+  border-radius: 28px; padding: 0;
+  max-width: 520px; width: 100%; overflow: hidden;
+  transform: scale(.94); transition: transform .4s var(--ease);
+}
+.exit-overlay.open .exit-modal { transform: none; }
+.exit-modal-top {
+  background: linear-gradient(135deg, var(--a1), #C026D3);
+  padding: 40px; text-align: center; position: relative;
+}
+.exit-modal-top::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .06;
+}
+.exit-emoji { font-size: 3rem; margin-bottom: 14px; position: relative; z-index: 1; }
+.exit-h { font-family: 'Syne'; font-size: 1.6rem; font-weight: 800; margin-bottom: 8px; position: relative; z-index: 1; }
+.exit-p { font-size: .82rem; color: rgba(255,255,255,.7); position: relative; z-index: 1; }
+.exit-body { padding: 28px 36px 36px; text-align: center; }
+.exit-discount {
+  background: var(--a-light);
+  border: 2px dashed rgba(139,92,246,.5);
+  border-radius: 14px; padding: 16px;
+  margin: 0 0 24px;
+}
+.exit-discount-code { font-family: 'Syne'; font-size: 1.4rem; font-weight: 800; color: var(--a4); letter-spacing: .12em; }
+.exit-discount-label { font-size: .7rem; color: var(--muted); margin-top: 4px; }
+.exit-btns { display: flex; flex-direction: column; gap: 10px; }
+.exit-btn-main {
+  background: linear-gradient(135deg,var(--a1),var(--a3));
+  color: #fff; padding: 15px; border: none; border-radius: 14px;
+  font-family: 'Syne'; font-size: .8rem; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase; cursor: pointer;
+  box-shadow: 0 6px 24px var(--a-glow); transition: all .22s var(--ease);
+}
+.exit-btn-main:hover { transform: translateY(-1px); box-shadow: 0 10px 32px var(--a-glow); }
+.exit-close-text { font-size: .7rem; color: var(--muted); cursor: pointer; text-decoration: underline; transition: color .2s; }
+.exit-close-text:hover { color: var(--dim); }
+
+/* ── TESTIMONIALS ── */
+.testimonials { position: relative; z-index: 1; padding: 80px 56px; max-width: 1240px; margin: 0 auto; }
+.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 48px; }
+.testi-card {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 20px; padding: 28px;
+  transition: all .3s var(--ease);
+}
+.testi-card:hover { border-color: var(--line2); transform: translateY(-4px); background: var(--panel2); }
+.testi-stars { color: #F59E0B; font-size: .8rem; margin-bottom: 14px; letter-spacing: 2px; }
+.testi-text { font-size: .82rem; line-height: 1.9; color: var(--dim); margin-bottom: 18px; font-style: italic; }
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg,var(--a1),var(--a3)); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+.testi-name { font-family: 'Syne'; font-size: .78rem; font-weight: 700; }
+.testi-loc { font-size: .64rem; color: var(--muted); }
+.testi-type { display: inline-block; font-size: .58rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; margin-top: 4px; }
+
+/* ── STATS BAND ── */
+.stats-band {
+  position: relative; z-index: 1;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 48px 56px;
+}
+.stats-inner { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 0; }
+.stat-item { text-align: center; padding: 0 20px; border-right: 1px solid var(--line); }
+.stat-item:last-child { border-right: none; }
+.stat-n {
+  font-family: 'Syne'; font-size: 2.8rem; font-weight: 800;
+  background: linear-gradient(135deg,var(--a4),#E879F9);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  line-height: 1; display: block; margin-bottom: 6px;
+}
+.stat-l { font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+
+
+/* ── STEP PROGRESS BAR ── */
+.config-progress {
+  display: flex; align-items: center; gap: 0;
+  margin-bottom: 32px; position: relative;
+}
+.cp-step {
+  display: flex; align-items: center; flex: 1;
+}
+.cp-dot {
+  width: 32px; height: 32px; border-radius: 10px;
+  background: var(--panel2); border: 1.5px solid var(--line2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne'; font-size: .68rem; font-weight: 800; color: var(--muted);
+  flex-shrink: 0; transition: all .35s var(--ease); z-index: 1; position: relative;
+}
+.cp-dot.active { background: linear-gradient(135deg,var(--a1),var(--a3)); border-color: var(--a2); color: #fff; box-shadow: 0 4px 16px var(--a-glow); }
+.cp-dot.done { background: rgba(16,185,129,.2); border-color: #10B981; color: #10B981; }
+.cp-label { font-size: .6rem; color: var(--muted); margin-left: 8px; font-weight: 600; transition: color .3s; white-space: nowrap; }
+.cp-label.active { color: var(--a4); }
+.cp-label.done { color: #10B981; }
+.cp-line {
+  flex: 1; height: 1.5px; background: var(--line);
+  margin: 0 8px; transition: background .4s;
+}
+.cp-line.done { background: #10B981; }
+
+/* ── PROGRESSIVE STEPS ── */
+.step { cursor: default; }
+.step .step-body { display: none; }
+.step.unlocked .step-body { display: block; }
+.step.unlocked { cursor: default; border-color: var(--line2); }
+.step.unlocked .step-hd { cursor: default; }
+.step.completed .step-num { background: linear-gradient(135deg,#10B981,#059669); }
+.step.completed .step-num::after { content: '✓'; position:absolute; }
+.step-lock {
+  display: flex; align-items: center; gap: 6px;
+  font-size: .64rem; color: var(--muted); padding: 0 24px 18px;
+}
+
+/* ── PRICE ANIMATE ── */
+@keyframes price-pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+.price-pop { animation: price-pop .35s var(--spring); }
+
+/* ── FORM VALIDATION ── */
+.field.error input, .field.error select, .field.error textarea {
+  border-color: #EF4444; box-shadow: 0 0 0 3px rgba(239,68,68,.15);
+}
+.field.success input, .field.success select {
+  border-color: #10B981; box-shadow: 0 0 0 3px rgba(16,185,129,.1);
+}
+.field-msg { font-size: .62rem; margin-top: 5px; height: 14px; }
+.field.error .field-msg { color: #EF4444; }
+.field.success .field-msg { color: #10B981; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .trust-bar { padding: 10px 20px; gap: 20px; }
+  .tb-item:nth-child(n+4) { display: none; }
+  .sticky-cta { padding: 12px 20px; }
+  .sc-sub { display: none; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .stats-inner { grid-template-columns: 1fr 1fr; }
+  .stat-item { border-right: none; border-bottom: 1px solid var(--line); padding: 20px; }
+  .stat-item:nth-child(odd) { border-right: 1px solid var(--line); }
+  .stat-item:last-child, .stat-item:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+  .testimonials { padding: 60px 24px; }
+  .stats-band { padding: 0; }
+  .wa-float { bottom: 20px; right: 16px; }
+}
+@media(max-width:640px){
+  .sticky-cta { flex-direction: column; gap: 10px; padding: 16px 20px; }
+  .sc-btn { width: 100%; text-align: center; }
+  .exit-body { padding: 20px 24px 28px; }
+  .exit-h { font-size: 1.3rem; }
+}
+
+/* ── MOBILE NAV ── */
+.n-hamburger {
+  display: none; background: none; border: 1px solid var(--line2);
+  width: 38px; height: 38px; border-radius: 10px; cursor: pointer;
+  flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  transition: all .2s;
+}
+.n-hamburger:hover { background: var(--panel2); }
+.n-hamburger span { width: 18px; height: 1.5px; background: var(--dim); border-radius: 999px; transition: all .3s; }
+.n-mobile-menu {
+  display: none; position: fixed; top: 62px; left: 0; right: 0; z-index: 800;
+  background: rgba(6,6,10,.96); backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--line);
+  padding: 20px 24px 28px; flex-direction: column; gap: 0;
+}
+.n-mobile-menu.open { display: flex; }
+.n-mobile-menu a {
+  font-size: .84rem; font-weight: 500; color: var(--dim);
+  text-decoration: none; padding: 14px 0;
+  border-bottom: 1px solid var(--line); transition: color .2s;
+}
+.n-mobile-menu a:hover { color: var(--white); }
+.n-mobile-menu a:last-of-type { border-bottom: none; }
+.n-mobile-cta {
+  margin-top: 16px;
+  background: linear-gradient(135deg,var(--a1),var(--a3));
+  color: #fff; padding: 14px; border: none; border-radius: 14px;
+  font-family: 'Syne'; font-size: .76rem; font-weight: 700;
+  text-align: center; cursor: pointer;
+  box-shadow: 0 6px 24px var(--a-glow);
+}
+@media(max-width:900px) {
+  .n-hamburger { display: flex; }
+  .n-links { display: none !important; }
+  .n-actions .n-btn-ghost { display: none; }
+}
+
+</style>
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+
+<!-- AMBIENT -->
+<div class="ambient">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+<div class="noise"></div>
+
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="tb-item"><span class="tb-ico">🛡️</span><span><strong>Garantía</strong> de calidad total</span></div>
+  <div class="tb-item"><span class="tb-ico">🚚</span><span>Envíos a <strong>México y el mundo</strong></span></div>
+  <div class="tb-item"><span class="tb-ico">⚡</span><span>Producción en <strong>3-7 días</strong></span></div>
+  <div class="tb-item"><span class="tb-ico">📦</span><span><strong>Empaque premium</strong> anti-golpes</span></div>
+  <div class="tb-item"><span class="tb-ico">💬</span><span>Soporte por <strong>WhatsApp</strong></span></div>
+</div>
+
+
+<!-- STICKY CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <div class="sc-left">
+    <div class="sc-title">¿Listo para tu cuadro personalizado?</div>
+    <div class="sc-sub">Precio instantáneo · Producción profesional · Envío a todo el mundo</div>
+  </div>
+  <div class="sc-price" id="stickyPrice" style="display:none"></div>
+  <button class="sc-btn" onclick="smoothTo('configurador')">Configurar ahora →</button>
+</div>
+
+
+<!-- EXIT INTENT -->
+<div class="exit-overlay" id="exitOverlay">
+  <div class="exit-modal">
+    <div class="exit-modal-top">
+      <div class="exit-emoji">🎁</div>
+      <h3 class="exit-h">¡Espera! Antes de irte...</h3>
+      <p class="exit-p">Tenemos algo especial para ti en tu primer pedido</p>
+    </div>
+    <div class="exit-body">
+      <div class="exit-discount">
+        <div class="exit-discount-code">ARTE10</div>
+        <div class="exit-discount-label">10% de descuento en tu primer cuadro · Válido 24 horas</div>
+      </div>
+      <div class="exit-btns">
+        <button class="exit-btn-main" onclick="closeExit();smoothTo('configurador')">Quiero mi descuento →</button>
+        <span class="exit-close-text" onclick="closeExit()">No gracias, prefiero pagar precio completo</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER MODAL -->
+<div class="overlay" id="orderOverlay">
+  <div class="modal-box">
+    <div class="modal-glow"></div>
+    <div class="modal-icon">✅</div>
+    <h2 class="modal-h">¡Pago recibido!</h2>
+    <p class="modal-p">Tu orden fue registrada y el pago procesado exitosamente. Nuestro equipo comenzará la producción en las próximas horas.</p>
+    <div class="modal-id" id="modalOrderId"></div>
+    <div style="background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:12px 0;display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-size:.72rem;color:var(--muted)">Total pagado</span>
+      <span style="font-family:Syne;font-size:1rem;font-weight:800;color:var(--a4)" id="modalTotal">—</span>
+    </div>
+    <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:12px;padding:12px 16px;margin-bottom:16px;font-size:.72rem;color:var(--dim);line-height:1.7;">
+      Si por algún motivo no podemos completar tu pedido, realizamos la <strong style="color:#10B981">devolución completa</strong> en 3-5 días hábiles.
+    </div>
+    <p style="font-size:.68rem;color:var(--muted);margin-bottom:16px">Recibirás un correo de confirmación. Guarda tu número de orden para seguimiento.</p>
+    <button class="modal-close" onclick="closeOrderModal()">Perfecto, gracias</button>
+  </div>
+</div>
+
+
+<!-- SOCIAL PROOF TICKER -->
+<div class="proof-ticker" id="proofTicker">
+  <div class="pt-top">
+    <div class="pt-avatar" id="ptAvatar">😊</div>
+    <div>
+      <div class="pt-name" id="ptName">María G.</div>
+      <div class="pt-action" id="ptAction">ordenó un cuadro acrílico 60×80</div>
+    </div>
+  </div>
+  <div class="pt-time" id="ptTime">hace 3 minutos · Guadalajara, MX</div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="n-logo">
+    <div class="n-logo-mark">✦</div>
+    ArtFrame Studio
+  </a>
+  <div class="n-links">
+    <a href="#materiales">Materiales</a>
+    <a href="#galeria">Galería</a>
+    <a href="#configurador">Configurador</a>
+    <a href="#envios">Envíos</a>
+    <a href="#testimonios">Testimonios</a>
+    <a href="#como">¿Cómo funciona?</a>
+  </div>
+  <div class="n-actions">
+    <button class="n-btn-ghost" onclick="smoothTo('galeria')">Ver galería</button>
+    <button class="n-btn-primary" onclick="smoothTo('configurador')">Crear mi cuadro</button>
+    <button class="n-hamburger" onclick="toggleMobileMenu()" id="hamburgerBtn">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<!-- MOBILE MENU -->
+<div class="n-mobile-menu" id="mobileMenu">
+  <a href="#materiales" onclick="closeMobileMenu()">Materiales</a>
+  <a href="#galeria" onclick="closeMobileMenu()">Galería</a>
+  <a href="#configurador" onclick="closeMobileMenu()">Configurador</a>
+  <a href="#testimonios" onclick="closeMobileMenu()">Testimonios</a>
+  <a href="#envios" onclick="closeMobileMenu()">Envíos</a>
+  <a href="#como" onclick="closeMobileMenu()">¿Cómo funciona?</a>
+  <button class="n-mobile-cta" onclick="closeMobileMenu();smoothTo('configurador')">Crear mi cuadro →</button>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="viewing-now"><div class="vn-dot"></div><span id="viewingCount">12</span> personas configurando su cuadro ahora</div>
+  <div class="hero-eyebrow">
+    <div class="hero-eyebrow-dot"></div>
+    Arte impreso · Acrilico · Neón · Tela
+  </div>
+  <h1 class="hero-h1">
+    Tu visión hecha
+    <span class="line2"><span class="grad-text">arte tangible.</span></span>
+  </h1>
+  <p class="hero-sub">Configura tu cuadro personalizado en minutos. Elige el material, ajusta las dimensiones, sube tu diseño y obtén precio al instante. Producción profesional, entrega a domicilio.</p>
+  <div class="hero-cta">
+    <button class="btn-grad" onclick="smoothTo('configurador')">Configurar mi cuadro →</button>
+    <button class="btn-ghost" onclick="smoothTo('galeria')">Ver galería de diseños ↓</button>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fu .9s var(--ease) .5s forwards;">
+    <span style="font-size:.62rem;color:var(--muted)">Pago seguro</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 14px;font-size:.62rem;color:var(--dim)">🔒 Stripe · Visa · MC · AMEX · OXXO</span>
+    <span style="display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);border-radius:999px;padding:5px 14px;font-size:.62rem;color:#10B981">✓ Devolución garantizada</span>
+  </div>
+  <div class="material-pills">
+    <div class="mpill">
+      <span class="mpill-ico">🔷</span>
+      <div>
+        <span class="mpill-name">Acrílico encapsulado</span>
+        <span class="mpill-desc">Acabado brillante · Alta fidelidad</span>
+      </div>
+    </div>
+    <div class="mpill">
+      <span class="mpill-ico">🖼</span>
+      <div>
+        <span class="mpill-name">Impresión en tela</span>
+        <span class="mpill-desc">Textura canvas · Efecto pintura</span>
+      </div>
+    </div>
+    <div class="mpill">
+      <span class="mpill-ico">💡</span>
+      <div>
+        <span class="mpill-name">Cuadro de neón</span>
+        <span class="mpill-desc">LED RGB · Diseño a la medida</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-line" id="materiales"></div>
+
+<!-- MATERIALS -->
+<div class="section">
+  <span class="section-tag">Materiales premium</span>
+  <h2 class="section-h">Tres materiales.<br>Infinitas posibilidades.</h2>
+  <p class="section-p">Cada material tiene características únicas. Elige el que mejor se adapte a tu espacio y estilo.</p>
+
+  <div class="materials-grid">
+    <div class="mat-card" style="--accent-color:rgba(6,182,212,.15)">
+      <div class="mat-img">
+        <div class="mat-img-bg"></div>
+        <div class="mat-img-glow" style="--mat-color:rgba(6,182,212,.3)"></div>
+        <div class="mat-img-icon">🔷</div>
+      </div>
+      <div class="mat-body">
+        <span class="mat-accent" style="background:rgba(6,182,212,.15);color:#06B6D4;border:1px solid rgba(6,182,212,.3)">Acrílico</span>
+        <div class="mat-name">Cuadro Acrílico Encapsulado</div>
+        <div style="font-size:.64rem;font-weight:700;color:#06B6D4;margin-bottom:8px;letter-spacing:.04em">$0.85/cm² · desde $510 MXN</div>
+        <p class="mat-desc">Impresión de ultra alta resolución protegida entre dos capas de acrílico cristal de 3mm. Colores vibrantes, acabado brillante y resistencia excepcional al tiempo.</p>
+        <div class="mat-specs">
+          <span class="mat-spec">Alta fidelidad de color</span>
+          <span class="mat-spec">Resistente a UV</span>
+          <span class="mat-spec">Acabado brillante</span>
+          <span class="mat-spec">Sin marco necesario</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-card" style="--accent-color:rgba(245,158,11,.1)">
+      <div class="mat-img">
+        <div class="mat-img-bg"></div>
+        <div class="mat-img-glow" style="--mat-color:rgba(245,158,11,.25)"></div>
+        <div class="mat-img-icon">🖼</div>
+      </div>
+      <div class="mat-body">
+        <span class="mat-accent" style="background:rgba(245,158,11,.15);color:#F59E0B;border:1px solid rgba(245,158,11,.3)">Tela Canvas</span>
+        <div class="mat-name">Cuadro Impreso en Tela</div>
+        <div style="font-size:.64rem;font-weight:700;color:#F59E0B;margin-bottom:8px;letter-spacing:.04em">$0.55/cm² · desde $330 MXN</div>
+        <p class="mat-desc">Impresión directa sobre canvas de alta calidad tensado en bastidor de madera. Textura orgánica que emula una pintura al óleo. Efecto artístico y cálido.</p>
+        <div class="mat-specs">
+          <span class="mat-spec">Textura artística</span>
+          <span class="mat-spec">Bastidor incluido</span>
+          <span class="mat-spec">Efecto canvas</span>
+          <span class="mat-spec">Listo para colgar</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-card" style="--accent-color:rgba(16,185,129,.1)">
+      <div class="mat-img">
+        <div class="mat-img-bg"></div>
+        <div class="mat-img-glow" style="--mat-color:rgba(16,185,129,.25)"></div>
+        <div class="mat-img-icon">💡</div>
+      </div>
+      <div class="mat-body">
+        <span class="mat-accent" style="background:rgba(16,185,129,.15);color:#10B981;border:1px solid rgba(16,185,129,.3)">Neón LED</span>
+        <div class="mat-name">Cuadro de Neón Personalizado</div>
+        <div style="font-size:.64rem;font-weight:700;color:#10B981;margin-bottom:8px;letter-spacing:.04em">$1.20/cm² · desde $720 MXN</div>
+        <p class="mat-desc">Letras y formas en LED flexible sobre base acrílica. Personaliza tu texto, logo o forma. Múltiples colores RGB con control remoto incluido. Impacto visual garantizado.</p>
+        <div class="mat-specs">
+          <span class="mat-spec">LED RGB</span>
+          <span class="mat-spec">Control remoto</span>
+          <span class="mat-spec">Bajo consumo</span>
+          <span class="mat-spec">Texto/logo custom</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-line" id="galeria"></div>
+
+<!-- GALLERY -->
+<div class="section">
+  <div class="gallery-header">
+    <div>
+      <span class="section-tag">Nuestros diseños</span>
+      <h2 class="section-h">Galería de<br>inspiración</h2>
+    </div>
+    <button class="btn-ghost" style="align-self:flex-end">Ver todos →</button>
+  </div>
+
+  <div class="gallery-cats" id="galleryCats">
+    <div class="cat-btn active" onclick="filterGallery(this,'all')">Todos</div>
+    <div class="cat-btn" onclick="filterGallery(this,'acrilico')">Acrílico</div>
+    <div class="cat-btn" onclick="filterGallery(this,'tela')">Tela</div>
+    <div class="cat-btn" onclick="filterGallery(this,'neon')">Neón</div>
+    <div class="cat-btn" onclick="filterGallery(this,'abstracto')">Abstracto</div>
+    <div class="cat-btn" onclick="filterGallery(this,'naturaleza')">Naturaleza</div>
+    <div class="cat-btn" onclick="filterGallery(this,'urbano')">Urbano</div>
+  </div>
+
+  <div class="gallery-masonry" id="galleryMasonry"></div>
+</div>
+
+<div class="section-line"></div>
+
+<!-- CONFIGURATOR -->
+<div class="config-wrapper" id="configurador">
+  <div class="config-inner">
+    <div class="config-intro">
+      <span class="section-tag">Configurador</span>
+      <h2 class="section-h">Diseña tu cuadro.<br>Precio al instante.</h2>
+      <p class="section-p">Sigue los pasos para personalizar tu cuadro y enviar tu orden de producción directamente.</p>
+    </div>
+
+    <div class="config-layout">
+      <!-- LEFT STEPS -->
+      <!-- PROGRESS INDICATOR -->
+      <div class="config-progress" id="configProgress">
+        <div class="cp-step">
+          <div class="cp-dot active" id="cp1">1</div>
+          <div class="cp-label active" id="cpl1">Material</div>
+        </div>
+        <div class="cp-line" id="cpline1"></div>
+        <div class="cp-step">
+          <div class="cp-dot" id="cp2">2</div>
+          <div class="cp-label" id="cpl2">Tamaño</div>
+        </div>
+        <div class="cp-line" id="cpline2"></div>
+        <div class="cp-step">
+          <div class="cp-dot" id="cp3">3</div>
+          <div class="cp-label" id="cpl3">Diseño</div>
+        </div>
+        <div class="cp-line" id="cpline3"></div>
+        <div class="cp-step">
+          <div class="cp-dot" id="cp4">4</div>
+          <div class="cp-label" id="cpl4">Datos</div>
+        </div>
+      </div>
+
+      <div class="steps-list">
+
+        <!-- STEP 1 -->
+        <div class="step unlocked active" id="step1">
+          <div class="step-hd">
+            <div class="step-num">1</div>
+            <div class="step-hd-text">
+              <div class="step-hd-title">Tipo de cuadro</div>
+              <div class="step-hd-hint">Selecciona el material</div>
+            </div>
+            <div class="step-badge" id="badge1">✓ Seleccionado</div>
+          </div>
+          <div class="step-body">
+            <div class="type-cards">
+              <div class="type-card" onclick="selectType(this,'acrilico')" style="--tc:rgba(6,182,212,.3)">
+                <div class="tc-check">✓</div>
+                <span class="tc-icon">🔷</span>
+                <span class="tc-name">Acrílico</span>
+                <span class="tc-rate" id="rate-acrilico">$0.85/cm²</span>
+              </div>
+              <div class="type-card" onclick="selectType(this,'tela')" style="--tc:rgba(245,158,11,.3)">
+                <div class="tc-check">✓</div>
+                <span class="tc-icon">🖼</span>
+                <span class="tc-name">Tela</span>
+                <span class="tc-rate" id="rate-tela">$0.55/cm²</span>
+              </div>
+              <div class="type-card" onclick="selectType(this,'neon')" style="--tc:rgba(16,185,129,.3)">
+                <div class="tc-check">✓</div>
+                <span class="tc-icon">💡</span>
+                <span class="tc-name">Neón</span>
+                <span class="tc-rate" id="rate-neon">$1.20/cm²</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step locked" id="step2">
+          <div class="step-hd">
+            <div class="step-num">2</div>
+            <div class="step-hd-text">
+              <div class="step-hd-title">Dimensiones</div>
+              <div class="step-hd-hint">Elige un tamaño estándar o ingresa medidas exactas</div>
+            </div>
+            <div class="step-badge" id="badge2">✓ Seleccionado</div>
+          </div>
+          <div class="step-body">
+            <div class="size-mode-tabs">
+              <div class="smt active" onclick="sizeMode(this,'preset')">Tamaños estándar</div>
+              <div class="smt" onclick="sizeMode(this,'custom')">Medida exacta</div>
+            </div>
+            <div id="sizePreset">
+              <div class="preset-grid">
+                <div class="sz-btn" onclick="pickSize(this,20,30)"><span class="sz-label">Pequeño</span><span class="sz-cm">20×30 cm</span></div>
+                <div class="sz-btn" onclick="pickSize(this,30,40)"><span class="sz-label">Mediano</span><span class="sz-cm">30×40 cm</span></div>
+                <div class="sz-btn" onclick="pickSize(this,40,60)"><span class="sz-label">Grande</span><span class="sz-cm">40×60 cm</span></div>
+                <div class="sz-btn" onclick="pickSize(this,60,80)"><span class="sz-label">XL</span><span class="sz-cm">60×80 cm</span></div>
+                <div class="sz-btn" onclick="pickSize(this,80,120)"><span class="sz-label">XXL</span><span class="sz-cm">80×120 cm</span></div>
+                <div class="sz-btn" onclick="pickSize(this,100,150)"><span class="sz-label">Mural</span><span class="sz-cm">100×150 cm</span></div>
+              </div>
+            </div>
+            <div id="sizeCustom" style="display:none">
+              <div class="custom-row">
+                <div class="inp-wrap"><label>Ancho (cm)</label><input type="number" id="cW" placeholder="ej. 75" min="10" max="300" oninput="customSize()"></div>
+                <div class="inp-wrap"><label>Alto (cm)</label><input type="number" id="cH" placeholder="ej. 100" min="10" max="300" oninput="customSize()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step locked" id="step3">
+          <div class="step-hd">
+            <div class="step-num">3</div>
+            <div class="step-hd-text">
+              <div class="step-hd-title">Tu diseño</div>
+              <div class="step-hd-hint">Sube tu archivo o elige de nuestra galería</div>
+            </div>
+            <div class="step-badge" id="badge3">✓ Seleccionado</div>
+          </div>
+          <div class="step-body">
+            <div class="design-toggle">
+              <div class="toggle" id="designToggle" onclick="toggleDesign()"></div>
+              <span class="design-toggle-label" id="toggleLabel">Subir mi archivo</span>
+            </div>
+
+            <!-- Upload -->
+            <div id="uploadSection">
+              <div class="dropzone" id="dropzone"
+                onclick="document.getElementById('fi').click()"
+                ondragover="event.preventDefault();this.classList.add('drag')"
+                ondragleave="this.classList.remove('drag')"
+                ondrop="onDrop(event)">
+                <div class="dz-icon">📁</div>
+                <div class="dz-title">Arrastra tu archivo aquí</div>
+                <div class="dz-sub">o haz clic para explorar</div>
+                <div class="dz-fmt">PNG · JPG · PDF — Máximo 50 MB</div>
+              </div>
+              <div class="upload-preview" id="upPrev">
+                <img id="upImg" src="" alt="Vista previa">
+                <button class="upload-clear" onclick="clearFile(event)">✕</button>
+              </div>
+              <input type="file" id="fi" accept=".png,.jpg,.jpeg,.pdf" onchange="onFile(this)">
+            </div>
+
+            <!-- Gallery -->
+            <div id="galleryDesignSection" style="display:none">
+              <div class="des-gallery" id="designGallery"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step locked" id="step4">
+          <div class="step-hd">
+            <div class="step-num">4</div>
+            <div class="step-hd-text">
+              <div class="step-hd-title">Tus datos</div>
+              <div class="step-hd-hint">Para procesar tu orden y coordinar la entrega</div>
+            </div>
+            <div class="step-badge" id="badge4">✓ Completo</div>
+          </div>
+          <div class="step-body">
+            <div class="form-fields">
+              <div class="form-row">
+                <div class="field" id="field-nom"><label>Nombre *</label><div class="field-msg"></div><input type="text" id="fNom" placeholder="Tu nombre" oninput="tick()"></div>
+                <div class="field"><label>Apellido *</label><input type="text" id="fApe" placeholder="Tu apellido" oninput="tick()"></div>
+              </div>
+              <div class="form-row">
+                <div class="field" id="field-tel"><label>WhatsApp *</label><div class="field-msg"></div><input type="tel" id="fTel" placeholder="+52 55 0000 0000" oninput="tick()"></div>
+                <div class="field" id="field-mail"><label>Email *</label><div class="field-msg"></div><input type="email" id="fMail" placeholder="tu@email.com" oninput="tick()"></div>
+              </div>
+              <div class="field"><label>Dirección de entrega *</label><input type="text" id="fDir" placeholder="Calle, número, colonia, ciudad, estado" oninput="tick()"></div>
+              <div class="field"><label>País de entrega *</label>
+                <select id="fPais" onchange="updateShipping();tick()">
+                  <option value="">Selecciona un país...</option>
+                  <optgroup label="México">
+                    <option value="mx">🇲🇽 México</option>
+                  </optgroup>
+                  <optgroup label="Latinoamérica">
+                    <option value="us">🇺🇸 Estados Unidos</option>
+                    <option value="ca">🇨🇦 Canadá</option>
+                    <option value="gt">🇬🇹 Guatemala</option>
+                    <option value="co">🇨🇴 Colombia</option>
+                    <option value="ar">🇦🇷 Argentina</option>
+                    <option value="cl">🇨🇱 Chile</option>
+                    <option value="pe">🇵🇪 Perú</option>
+                    <option value="br">🇧🇷 Brasil</option>
+                  </optgroup>
+                  <optgroup label="Europa">
+                    <option value="es">🇪🇸 España</option>
+                    <option value="fr">🇫🇷 Francia</option>
+                    <option value="de">🇩🇪 Alemania</option>
+                    <option value="uk">🇬🇧 Reino Unido</option>
+                    <option value="it">🇮🇹 Italia</option>
+                  </optgroup>
+                  <optgroup label="Otro">
+                    <option value="otro">🌎 Otro país</option>
+                  </optgroup>
+                </select>
+              </div>
+              <div class="field"><label>¿Necesitas factura?</label>
+                <select id="fFact" onchange="tick()">
+                  <option value="no">No, gracias</option>
+                  <option value="si">Sí, necesito factura</option>
+                </select>
+              </div>
+              <div class="field"><label>Notas adicionales</label><textarea id="fNot" placeholder="Instrucciones especiales, colores, acabados, fecha requerida..."></textarea></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /steps-list -->
+
+      <!-- RIGHT: PRICE PANEL -->
+      <div class="price-panel">
+        <div class="pp-preview" id="ppPreview">
+          <div class="pp-preview-bg"></div>
+          <div class="pp-canvas-frame"></div>
+          <div class="pp-ph">
+            <div class="pp-ph-icon">🖼</div>
+            <div class="pp-ph-text" style="font-size:.72rem;margin-top:8px">Sube tu diseño o elige de la galería</div>
+          </div>
+          <div class="pp-preview-badge" id="ppBadge">Configura tu cuadro para ver la vista previa</div>
+        </div>
+
+        <div class="pp-body">
+          <div class="pp-title">Resumen de tu orden</div>
+          <div class="pp-rows">
+            <div class="pp-row"><span class="pp-row-k">Material</span><span class="pp-row-v empty" id="rType">—</span></div>
+            <div class="pp-row"><span class="pp-row-k">Dimensiones</span><span class="pp-row-v empty" id="rSize">—</span></div>
+            <div class="pp-row"><span class="pp-row-k">Área</span><span class="pp-row-v empty" id="rArea">—</span></div>
+            <div class="pp-row"><span class="pp-row-k">Precio/cm²</span><span class="pp-row-v empty" id="rRate">—</span></div>
+            <div class="pp-row"><span class="pp-row-k">Diseño</span><span class="pp-row-v empty" id="rDesign">Sin seleccionar</span></div>
+            <div class="pp-row" style="border-top:1px solid var(--line2);padding-top:12px;margin-top:4px">
+              <span class="pp-row-k">Subtotal cuadro</span>
+              <span class="pp-row-v empty" id="rSubtotal">—</span>
+            </div>
+            <div class="pp-row">
+              <span class="pp-row-k">Envío</span>
+              <span class="pp-row-v empty" id="rShip">Selecciona país</span>
+            </div>
+          </div>
+
+          <!-- TOTAL -->
+          <div class="pp-price">
+            <div>
+              <span class="pp-price-label">Total a pagar</span>
+              <div style="font-size:.6rem;color:var(--muted);margin-top:2px" id="rShipDays"></div>
+            </div>
+            <span class="pp-price-val" id="ppTotal">—</span>
+          </div>
+
+          <!-- REFUND POLICY -->
+          <div style="background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);border-radius:12px;padding:12px 14px;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start;">
+            <span style="font-size:.9rem;flex-shrink:0">🛡️</span>
+            <div>
+              <div style="font-family:Syne;font-size:.66rem;font-weight:700;color:#10B981;margin-bottom:3px">Compra 100% segura</div>
+              <p style="font-size:.62rem;line-height:1.65;color:var(--muted)">Si por algún motivo no podemos completar tu pedido, realizamos la devolución completa en 3-5 días hábiles. Sin preguntas.</p>
+            </div>
+          </div>
+
+          <button class="btn-order" id="btnOrder" disabled onclick="sendOrder()">
+            🔒 Pagar y confirmar orden →
+          </button>
+          <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;flex-wrap:wrap;">
+            <span style="font-size:.58rem;color:var(--muted)">Pagos seguros con</span>
+            <span style="font-size:.62rem;font-weight:700;color:var(--a4)">Stripe</span>
+            <span style="font-size:.58rem;color:var(--muted)">·</span>
+            <span style="font-size:.58rem;color:var(--muted)">Visa · Mastercard · AMEX · OXXO</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /config-layout -->
+  </div>
+</div>
+
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stats-inner">
+    <div class="stat-item"><span class="stat-n" data-target="847">0</span><span class="stat-l">Cuadros producidos</span></div>
+    <div class="stat-item"><span class="stat-n" data-target="98">0</span><span class="stat-l">% clientes satisfechos</span></div>
+    <div class="stat-item"><span class="stat-n" data-target="23">0</span><span class="stat-l">Países con envío</span></div>
+    <div class="stat-item"><span class="stat-n" data-target="5">0</span><span class="stat-l">Años de experiencia</span></div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="testimonials" id="testimonios">
+  <span class="section-tag">Testimonios reales</span>
+  <h2 class="section-h">Lo que dicen<br>nuestros clientes</h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Increíble calidad. El cuadro acrílico de mi sala quedó mejor de lo que esperaba. Los colores son vibrantes y el acabado es impecable. Definitivamente volvería a pedir."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👩</div>
+        <div>
+          <div class="testi-name">Valentina R.</div>
+          <div class="testi-loc">Ciudad de México · Cuadro Acrílico 60×80</div>
+          <span class="testi-type" style="background:rgba(6,182,212,.15);color:#06B6D4">Acrílico</span>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Pedí el logo de mi empresa en neón para la oficina y quedó espectacular. El proceso fue súper fácil, el configurador es muy intuitivo y llegó perfectamente empacado."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👨‍💼</div>
+        <div>
+          <div class="testi-name">Carlos M.</div>
+          <div class="testi-loc">Monterrey · Cuadro Neón personalizado</div>
+          <span class="testi-type" style="background:rgba(16,185,129,.15);color:#10B981">Neón</span>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Viví en España y pedí un cuadro de tela con una foto de mis papás. Llegó a Madrid en perfectas condiciones. El empaque es de otro nivel. Mi mamá lloró de emoción."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👩‍🦱</div>
+        <div>
+          <div class="testi-name">Andrea L.</div>
+          <div class="testi-loc">Madrid, España · Cuadro Tela 40×60</div>
+          <span class="testi-type" style="background:rgba(245,158,11,.15);color:#F59E0B">Tela</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-line"></div>
+
+<div class="section-line" id="envios"></div>
+
+<!-- SHIPPING & POLICIES -->
+<div class="section" style="max-width:1240px">
+  <span class="section-tag">Envíos y garantías</span>
+  <h2 class="section-h">Enviamos a todo<br>México y el mundo.</h2>
+  <p class="section-p" style="margin-bottom:52px">Trabajamos con las mejores paqueterías para que tu cuadro llegue en perfectas condiciones, sin importar dónde estés.</p>
+
+  <!-- Shipping zones -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:64px" class="ship-grid">
+
+    <!-- México -->
+    <div style="background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:28px;transition:all .3s var(--ease)" onmouseover="this.style.borderColor='var(--line2)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--line)';this.style.transform='none'">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div style="font-size:2rem">🇲🇽</div>
+        <div>
+          <div style="font-family:Syne;font-size:.9rem;font-weight:800">México</div>
+          <div style="font-size:.66rem;color:var(--muted)">Envío nacional</div>
+        </div>
+        <div style="margin-left:auto;background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);border-radius:999px;padding:4px 12px;font-size:.58rem;font-weight:700;color:#10B981">Más rápido</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;font-size:.76rem;padding-bottom:10px;border-bottom:1px solid var(--line)">
+          <span style="color:var(--muted)">CDMX y área metro</span><span style="font-weight:600">2-3 días · Gratis &gt;$2,000</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.76rem;padding-bottom:10px;border-bottom:1px solid var(--line)">
+          <span style="color:var(--muted)">Interior república</span><span style="font-weight:600">3-5 días hábiles</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.76rem">
+          <span style="color:var(--muted)">Paqueterías</span><span style="font-weight:600">FedEx · DHL · Estafeta</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- LATAM / USA -->
+    <div style="background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:28px;transition:all .3s var(--ease)" onmouseover="this.style.borderColor='var(--line2)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--line)';this.style.transform='none'">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div style="font-size:2rem">🌎</div>
+        <div>
+          <div style="font-family:Syne;font-size:.9rem;font-weight:800">LATAM & EE.UU.</div>
+          <div style="font-size:.66rem;color:var(--muted)">Internacional</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;font-size:.76rem;padding-bottom:10px;border-bottom:1px solid var(--line)">
+          <span style="color:var(--muted)">EE.UU. y Canadá</span><span style="font-weight:600">5-8 días hábiles</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.76rem;padding-bottom:10px;border-bottom:1px solid var(--line)">
+          <span style="color:var(--muted)">Latinoamérica</span><span style="font-weight:600">7-12 días hábiles</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.76rem">
+          <span style="color:var(--muted)">Paqueterías</span><span style="font-weight:600">FedEx International · DHL</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Europa -->
+    <div style="background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:28px;transition:all .3s var(--ease)" onmouseover="this.style.borderColor='var(--line2)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--line)';this.style.transform='none'">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div style="font-size:2rem">🌍</div>
+        <div>
+          <div style="font-family:Syne;font-size:.9rem;font-weight:800">Europa y resto</div>
+          <div style="font-size:.66rem;color:var(--muted)">Internacional</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;font-size:.76rem;padding-bottom:10px;border-bottom:1px solid var(--line)">
+          <span style="color:var(--muted)">Europa</span><span style="font-weight:600">8-14 días hábiles</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.76rem;padding-bottom:10px;border-bottom:1px solid var(--line)">
+          <span style="color:var(--muted)">Resto del mundo</span><span style="font-weight:600">10-18 días hábiles</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.76rem">
+          <span style="color:var(--muted)">Paqueterías</span><span style="font-weight:600">DHL Express · FedEx</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Policies grid -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px" class="policy-grid">
+
+    <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:18px;padding:24px 20px">
+      <div style="font-size:1.6rem;margin-bottom:12px">🛡️</div>
+      <div style="font-family:Syne;font-size:.82rem;font-weight:800;margin-bottom:8px">Garantía de calidad</div>
+      <p style="font-size:.72rem;line-height:1.82;color:var(--dim)">Si tu cuadro llega con defectos de producción, lo reponemos sin costo. Fotografías requeridas dentro de 48 horas.</p>
+    </div>
+
+    <div style="background:rgba(6,182,212,.08);border:1px solid rgba(6,182,212,.2);border-radius:18px;padding:24px 20px">
+      <div style="font-size:1.6rem;margin-bottom:12px">📦</div>
+      <div style="font-family:Syne;font-size:.82rem;font-weight:800;margin-bottom:8px">Empaque premium</div>
+      <p style="font-size:.72rem;line-height:1.82;color:var(--dim)">Cada pieza se embala con protección de espuma, cartón reforzado y esquinas protectoras. Tu cuadro viaja seguro.</p>
+    </div>
+
+    <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:18px;padding:24px 20px">
+      <div style="font-size:1.6rem;margin-bottom:12px">🔍</div>
+      <div style="font-family:Syne;font-size:.82rem;font-weight:800;margin-bottom:8px">Seguimiento en tiempo real</div>
+      <p style="font-size:.72rem;line-height:1.82;color:var(--dim)">Recibirás número de guía para rastrear tu pedido. Notificaciones automáticas en cada etapa del envío.</p>
+    </div>
+
+    <div style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:18px;padding:24px 20px">
+      <div style="font-size:1.6rem;margin-bottom:12px">💬</div>
+      <div style="font-family:Syne;font-size:.82rem;font-weight:800;margin-bottom:8px">Soporte dedicado</div>
+      <p style="font-size:.72rem;line-height:1.82;color:var(--dim)">Atención personalizada vía WhatsApp y email. Resolvemos cualquier duda antes, durante y después de tu compra.</p>
+    </div>
+
+  </div>
+
+  <!-- Customs notice -->
+  <div style="margin-top:20px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 24px;display:flex;gap:16px;align-items:flex-start">
+    <div style="font-size:1.2rem;flex-shrink:0;margin-top:2px">ℹ️</div>
+    <div>
+      <div style="font-family:Syne;font-size:.78rem;font-weight:700;margin-bottom:6px">Envíos internacionales — Aduanas</div>
+      <p style="font-size:.72rem;line-height:1.82;color:var(--dim)">Para envíos fuera de México, el comprador es responsable de los impuestos de importación y aranceles aduaneros que apliquen en su país. Los tiempos de entrega pueden variar por retenciones aduaneras. Siempre declaramos el valor real de los productos.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section-line"></div>
+
+<div class="section-line" id="como"></div>
+
+<!-- HOW IT WORKS -->
+<div class="section">
+  <span class="section-tag">Proceso</span>
+  <h2 class="section-h">Así de simple.</h2>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num">01</div>
+      <div class="how-title">Configura tu cuadro</div>
+      <p class="how-desc">Elige el material, ajusta el tamaño y sube tu diseño o elige uno de nuestra galería. El precio se calcula al instante.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">02</div>
+      <div class="how-title">Enviamos tu orden</div>
+      <p class="how-desc">Recibirás confirmación en menos de 2 horas. Nuestro equipo revisará tu diseño y te contactará para coordinar el pago.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">03</div>
+      <div class="how-title">Producción express</div>
+      <p class="how-desc">Una vez confirmado el pago, iniciamos producción. Tiempos de entrega de 3 a 7 días hábiles según el material.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">04</div>
+      <div class="how-title">Entrega a domicilio</div>
+      <p class="how-desc">Empacamos y enviamos tu cuadro con protección premium. Llega listo para colgar, con instrucciones incluidas.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section-line"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-inner">
+    <div class="ft-brand">
+      <div class="ft-logo">
+        <div class="ft-logo-mark">✦</div>
+        ArtFrame Studio
+      </div>
+      <p class="ft-brand-desc">Arte personalizado de alta calidad. Acrílico, tela y neón a tu medida.</p>
+    </div>
+    <div class="ft-col">
+      <h5>Materiales</h5>
+      <ul>
+        <li><a href="#materiales">Acrílico encapsulado</a></li>
+        <li><a href="#materiales">Impresión en tela</a></li>
+        <li><a href="#materiales">Cuadros de neón</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h5>Empresa</h5>
+      <ul>
+        <li><a href="#">Nosotros</a></li>
+        <li><a href="#">Galería</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h5>Legal</h5>
+      <ul>
+        <li><a href="#">Aviso de privacidad</a></li>
+        <li><a href="#">Términos y condiciones</a></li>
+        <li><a href="#">Política de envíos</a></li>
+        <li><a href="#">Devoluciones</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <span class="ft-copy">© 2025 ArtFrame Studio. Todos los derechos reservados.</span>
+    
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════
+   CONFIG — actualiza estos valores
+═══════════════════════════════════ */
+const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
+const SUPABASE_KEY = 'YOUR_ANON_KEY';
+
+// Precios por cm² en MXN — el admin los actualiza aquí
+const RATES = { acrilico: 0.85, tela: 0.55, neon: 1.20 };
+
+// Stripe publishable key — UPDATE THIS
+const STRIPE_KEY = 'pk_test_XXXXXXXXXXXXXXXXXXXXXXXX';
+
+// Shipping costs MXN
+const SHIP_COSTS = {
+  mx:   { label:'México', cost: 0,   free_above: 2000, days:'3-5 días' },
+  us:   { label:'EE.UU.', cost: 450, free_above: null, days:'5-8 días' },
+  ca:   { label:'Canadá', cost: 520, free_above: null, days:'6-10 días' },
+  gt:   { label:'Guatemala', cost: 380, free_above: null, days:'7-12 días' },
+  co:   { label:'Colombia', cost: 400, free_above: null, days:'7-12 días' },
+  ar:   { label:'Argentina', cost: 440, free_above: null, days:'7-12 días' },
+  cl:   { label:'Chile', cost: 420, free_above: null, days:'7-12 días' },
+  pe:   { label:'Perú', cost: 390, free_above: null, days:'7-12 días' },
+  br:   { label:'Brasil', cost: 480, free_above: null, days:'8-14 días' },
+  es:   { label:'España', cost: 620, free_above: null, days:'8-14 días' },
+  fr:   { label:'Francia', cost: 650, free_above: null, days:'8-14 días' },
+  de:   { label:'Alemania', cost: 650, free_above: null, days:'8-14 días' },
+  uk:   { label:'Reino Unido', cost: 630, free_above: null, days:'8-14 días' },
+  it:   { label:'Italia', cost: 650, free_above: null, days:'8-14 días' },
+  otro: { label:'Internacional', cost: 800, free_above: null, days:'10-20 días' },
+};
+
+const TYPE_NAMES = {
+  acrilico: 'Acrílico encapsulado',
+  tela:     'Impresión en tela',
+  neon:     'Cuadro de neón',
+};
+
+// Actualiza precios en los type-cards
+Object.keys(RATES).forEach(k => {
+  const el = document.getElementById('rate-' + k);
+  if (el) el.textContent = '$' + RATES[k].toFixed(2) + '/cm²';
+});
+
+/* ═══════════════════════════════════
+   GALLERY DATA — agrega tus diseños aquí
+   Cuando tengas imágenes en Supabase:
+   { id, emoji, label, type, src: 'URL' }
+═══════════════════════════════════ */
+const GALLERY_DATA = [
+  { id:'g1', label:'Selva tropical', type:'acrilico', tall:true,   grad:'linear-gradient(135deg,#064e3b,#065f46,#047857)' },
+  { id:'g2', label:'Skyline nocturno', type:'acrilico',            grad:'linear-gradient(160deg,#0f172a,#1e293b,#334155)' },
+  { id:'g3', label:'Ola japonesa', type:'tela', wide:true,         grad:'linear-gradient(135deg,#0c4a6e,#0369a1,#0ea5e9)' },
+  { id:'g4', label:'León majestuoso', type:'tela',                 grad:'linear-gradient(160deg,#78350f,#92400e,#b45309)' },
+  { id:'g5', label:'Nombre en neón', type:'neon', tall:true,       grad:'linear-gradient(135deg,#1a0533,#3b0764,#6b21a8)' },
+  { id:'g6', label:'Flores abstractas', type:'acrilico',           grad:'linear-gradient(160deg,#500724,#881337,#be123c)' },
+  { id:'g7', label:'Vía Láctea', type:'tela',                      grad:'linear-gradient(135deg,#030712,#1e1b4b,#312e81)' },
+  { id:'g8', label:'Corazón neón', type:'neon',                    grad:'linear-gradient(160deg,#2d1b69,#5b21b6,#7c3aed)' },
+  { id:'g9', label:'Leopardo', type:'acrilico',                    grad:'linear-gradient(135deg,#1c1917,#44403c,#78716c)' },
+  { id:'g10',label:'Montaña minimalista', type:'tela',             grad:'linear-gradient(160deg,#0f2942,#1e3a5f,#1e5799)' },
+];
+
+const DESIGN_GALLERY = [
+  { id:'d1',  label:'Naturaleza', grad:'linear-gradient(135deg,#064e3b,#047857)' },
+  { id:'d2',  label:'Urbano',     grad:'linear-gradient(135deg,#1e293b,#334155)' },
+  { id:'d3',  label:'Marino',     grad:'linear-gradient(135deg,#0c4a6e,#0ea5e9)' },
+  { id:'d4',  label:'Floral',     grad:'linear-gradient(135deg,#500724,#be123c)' },
+  { id:'d5',  label:'Galaxia',    grad:'linear-gradient(135deg,#030712,#312e81)' },
+  { id:'d6',  label:'Abstracto',  grad:'linear-gradient(135deg,#4c1d95,#7c3aed)' },
+  { id:'d7',  label:'Animal',     grad:'linear-gradient(135deg,#1c1917,#78716c)' },
+  { id:'d8',  label:'Minimalista',grad:'linear-gradient(135deg,#18181b,#3f3f46)' },
+  { id:'d9',  label:'Vibrante',   grad:'linear-gradient(135deg,#7f1d1d,#dc2626)' },
+  { id:'d10', label:'Montaña',    grad:'linear-gradient(135deg,#0f2942,#1e5799)' },
+  { id:'d11', label:'Dorado',     grad:'linear-gradient(135deg,#78350f,#d97706)' },
+  { id:'d12', label:'Nocturno',   grad:'linear-gradient(135deg,#0f172a,#1e3a8a)' },
+];
+
+/* ═══════════════════════════════════
+   RENDER GALLERY
+═══════════════════════════════════ */
+function buildGallery(items) {
+  const typeColors = { acrilico:'rgba(6,182,212,.15)', tela:'rgba(245,158,11,.15)', neon:'rgba(16,185,129,.15)' };
+  const typeNames  = { acrilico:'Acrílico', tela:'Tela', neon:'Neón' };
+  const typeText   = { acrilico:'#06B6D4', tela:'#F59E0B', neon:'#10B981' };
+  return items.map(g => `
+    <div class="gal-item${g.tall?' tall':''}${g.wide?' wide':''}" data-type="${g.type}">
+      <div class="gal-ph" style="background:${g.grad};min-height:180px;position:relative;">
+        <div style="position:absolute;inset:0;background:rgba(0,0,0,.28);display:flex;align-items:flex-end;padding:16px;">
+          <div style="font-family:Syne;font-size:.76rem;font-weight:700;color:rgba(255,255,255,.85)">${g.label}</div>
+        </div>
+      </div>
+      <div class="gal-type-badge" style="background:${typeColors[g.type]};color:${typeText[g.type]};border:1px solid ${typeText[g.type]}44">${typeNames[g.type]}</div>
+      <div class="gal-overlay">
+        <div class="gal-overlay-title">${g.label}</div>
+        <div class="gal-overlay-sub">${typeNames[g.type]}</div>
+        <button class="gal-overlay-btn" onclick="useDesignFromGallery('${g.id}','${g.label}')">Usar este diseño</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+document.getElementById('galleryMasonry').innerHTML = buildGallery(GALLERY_DATA);
+
+// Design gallery in configurator
+document.getElementById('designGallery').innerHTML = DESIGN_GALLERY.map(d => `
+  <div class="dg-item" onclick="pickDesign(this,'${d.id}','${d.label}',null)" id="dg-${d.id}"
+    style="background:${d.grad};position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:6px;">
+      <small style="font-size:.52rem;color:rgba(255,255,255,.8);font-weight:600;line-height:1.2">${d.label}</small>
+    </div>
+  </div>
+`).join('');
+
+function filterGallery(btn, type) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const items = type === 'all' ? GALLERY_DATA : GALLERY_DATA.filter(g => g.type === type || g.label.toLowerCase().includes(type));
+  document.getElementById('galleryMasonry').innerHTML = buildGallery(items.length ? items : GALLERY_DATA.filter(g => g.label.toLowerCase().includes(type)));
+}
+
+function useDesignFromGallery(id, label) {
+  smoothTo('configurador');
+  setTimeout(() => {
+    // Switch to gallery mode in design step
+    if (!designGalleryMode) { designGalleryMode = true; applyToggle(); }
+    const el = document.getElementById('dg-' + id);
+    // Try to find matching or just select first
+    document.querySelectorAll('.dg-item').forEach(d => d.classList.remove('sel'));
+    if (el) { el.classList.add('sel'); }
+    S.designName = label;
+    S.designEmoji = null;
+    updatePreview();
+    recalc();
+  }, 600);
+}
+
+/* ═══════════════════════════════════
+   STATE & LOGIC
+═══════════════════════════════════ */
+const S = {
+  type: null, w: null, h: null,
+  designFile: null, designName: null, designSrc: null, designEmoji: null,
+};
+
+function fmt(n) {
+  return '$' + n.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+
+// ── TYPE ──
+function selectType(el, type) {
+  document.querySelectorAll('.type-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  S.type = type;
+  document.getElementById('step1').classList.add('done');
+  document.getElementById('badge1').style.opacity = '1';
+  recalc();
+}
+
+// ── SIZE ──
+function sizeMode(tab, mode) {
+  document.querySelectorAll('.smt').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  document.getElementById('sizePreset').style.display = mode === 'preset' ? '' : 'none';
+  document.getElementById('sizeCustom').style.display  = mode === 'custom'  ? '' : 'none';
+  if (mode === 'custom') { S.w = null; S.h = null; document.querySelectorAll('.sz-btn').forEach(b=>b.classList.remove('sel')); recalc(); }
+}
+
+function pickSize(el, w, h) {
+  document.querySelectorAll('.sz-btn').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+  S.w = w; S.h = h;
+  document.getElementById('step2').classList.add('done');
+  document.getElementById('badge2').style.opacity = '1';
+  recalc();
+}
+
+function customSize() {
+  S.w = parseFloat(document.getElementById('cW').value) || null;
+  S.h = parseFloat(document.getElementById('cH').value) || null;
+  if (S.w && S.h) {
+    document.getElementById('step2').classList.add('done');
+    document.getElementById('badge2').style.opacity = '1';
+  }
+  recalc();
+}
+
+// ── DESIGN ──
+let designGalleryMode = false;
+function toggleDesign() {
+  designGalleryMode = !designGalleryMode;
+  applyToggle();
+}
+function applyToggle() {
+  const t = document.getElementById('designToggle');
+  const l = document.getElementById('toggleLabel');
+  t.classList.toggle('on', designGalleryMode);
+  l.textContent = designGalleryMode ? 'Elegir de galería' : 'Subir mi archivo';
+  document.getElementById('uploadSection').style.display = designGalleryMode ? 'none' : '';
+  document.getElementById('galleryDesignSection').style.display = designGalleryMode ? '' : 'none';
+  if (!designGalleryMode) { S.designName = null; S.designEmoji = null; document.querySelectorAll('.dg-item').forEach(d=>d.classList.remove('sel')); clearPreviewPanel(); recalc(); }
+}
+
+// File upload
+function onFile(inp) { if (inp.files[0]) processFile(inp.files[0]); }
+function onDrop(e) { e.preventDefault(); document.getElementById('dropzone').classList.remove('drag'); if (e.dataTransfer.files[0]) processFile(e.dataTransfer.files[0]); }
+function processFile(f) {
+  S.designFile = f; S.designName = f.name;
+  if (f.type.startsWith('image/')) {
+    const r = new FileReader();
+    r.onload = e => { S.designSrc = e.target.result; showUploadPreview(e.target.result); updatePreview(); };
+    r.readAsDataURL(f);
+  } else { S.designSrc = null; showUploadPreview(null); }
+  document.getElementById('step3').classList.add('done');
+  document.getElementById('badge3').style.opacity = '1';
+  recalc();
+}
+function showUploadPreview(src) {
+  const dz = document.getElementById('dropzone');
+  const up = document.getElementById('upPrev');
+  if (src) { document.getElementById('upImg').src = src; up.style.display=''; dz.style.display='none'; }
+  else { up.style.display=''; dz.style.display='none'; }
+}
+function clearFile(e) {
+  e.stopPropagation();
+  S.designFile=null; S.designName=null; S.designSrc=null;
+  document.getElementById('upPrev').style.display='none';
+  document.getElementById('dropzone').style.display='';
+  document.getElementById('upImg').src='';
+  document.getElementById('fi').value='';
+  document.getElementById('step3').classList.remove('done');
+  document.getElementById('badge3').style.opacity='0';
+  clearPreviewPanel();
+  recalc();
+}
+
+// Gallery design pick
+function pickDesign(el, id, label, emoji) {
+  document.querySelectorAll('.dg-item').forEach(d => d.classList.remove('sel'));
+  el.classList.add('sel');
+  S.designName = label; S.designEmoji = emoji; S.designSrc = null;
+  document.getElementById('step3').classList.add('done');
+  document.getElementById('badge3').style.opacity = '1';
+  updatePreview();
+  recalc();
+}
+
+// ── PREVIEW ──
+function updatePreview() {
+  const pp = document.getElementById('ppPreview');
+  const badge = document.getElementById('ppBadge');
+  if (S.designSrc) {
+    pp.innerHTML = `
+      <div class="pp-preview-bg"></div>
+      <img src="${S.designSrc}" style="width:100%;height:100%;object-fit:contain;display:block;position:relative;z-index:1;">
+      <div class="pp-canvas-frame"></div>
+      <div class="pp-preview-badge" id="ppBadge">Tu diseño • ${S.designName || ''}</div>
+    `;
+  } else if (S.designEmoji) {
+    pp.innerHTML = `
+      <div class="pp-preview-bg"></div>
+      <div class="pp-ph" style="position:relative;z-index:1;">
+        <div class="pp-ph-icon" style="font-size:4rem;opacity:1">${S.designEmoji}</div>
+        <div class="pp-ph-text" style="margin-top:8px">${S.designName || 'Diseño de galería'}</div>
+      </div>
+      <div class="pp-canvas-frame"></div>
+      <div class="pp-preview-badge" id="ppBadge">Diseño de galería • ${S.designName}</div>
+    `;
+  }
+}
+function clearPreviewPanel() {
+  document.getElementById('ppPreview').innerHTML = `
+    <div class="pp-preview-bg"></div>
+    <div class="pp-canvas-frame"></div>
+    <div class="pp-ph"><div class="pp-ph-icon">🖼</div><div class="pp-ph-text" style="font-size:.72rem;margin-top:8px">Sube tu diseño o elige de la galería</div></div>
+    <div class="pp-preview-badge" id="ppBadge">Configura tu cuadro para ver la vista previa</div>
+  `;
+}
+
+// ── RECALC ──
+function recalc() {
+  const rType   = document.getElementById('rType');
+  const rSize   = document.getElementById('rSize');
+  const rArea   = document.getElementById('rArea');
+  const rRate   = document.getElementById('rRate');
+  const rDesign = document.getElementById('rDesign');
+  const ppTotal = document.getElementById('ppTotal');
+
+  // Type
+  if (S.type) { rType.textContent = TYPE_NAMES[S.type]; rType.classList.remove('empty'); }
+  else { rType.textContent = '—'; rType.classList.add('empty'); }
+
+  // Size
+  if (S.w && S.h) {
+    rSize.textContent = `${S.w} × ${S.h} cm`; rSize.classList.remove('empty');
+    const area = S.w * S.h;
+    rArea.textContent = area.toLocaleString() + ' cm²'; rArea.classList.remove('empty');
+  } else { rSize.textContent = '—'; rSize.classList.add('empty'); rArea.textContent = '—'; rArea.classList.add('empty'); }
+
+  // Rate
+  if (S.type) { rRate.textContent = '$' + RATES[S.type].toFixed(2) + '/cm²'; rRate.classList.remove('empty'); }
+  else { rRate.textContent = '—'; rRate.classList.add('empty'); }
+
+  // Design
+  const hasDesign = (S.designFile || S.designName);
+  if (hasDesign) { rDesign.textContent = S.designName || 'Archivo subido'; rDesign.classList.remove('empty'); }
+  else { rDesign.textContent = 'Sin seleccionar'; rDesign.classList.add('empty'); }
+
+  // Total with shipping
+  if (S.type && S.w && S.h) {
+    const subtotal = S.w * S.h * RATES[S.type];
+    const ship = getShippingCost();
+    const total = subtotal + (ship ? ship.actualCost : 0);
+    ppTotal.textContent = fmt(total) + ' MXN';
+    ppTotal.style.cssText = 'background:linear-gradient(135deg,#A78BFA,#E879F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:Syne;font-size:1.8rem;font-weight:800;';
+  } else {
+    ppTotal.textContent = '—';
+    ppTotal.style.cssText = 'font-family:Syne;font-size:1.8rem;font-weight:800;color:#444;';
+  }
+
+  tick();
+}
+
+
+// ── SHIPPING ──
+const SHIP_ZONES = {
+  mx:   { label: 'México', est: 'Gratis en pedidos >$2,000 MXN', days: '3-5 días hábiles' },
+  us:   { label: 'EE.UU.', est: '$350-650 MXN', days: '5-8 días hábiles' },
+  ca:   { label: 'Canadá', est: '$400-700 MXN', days: '6-10 días hábiles' },
+  gt:   { label: 'Guatemala', est: '$300-500 MXN', days: '7-12 días hábiles' },
+  co:   { label: 'Colombia', est: '$350-600 MXN', days: '7-12 días hábiles' },
+  ar:   { label: 'Argentina', est: '$400-650 MXN', days: '7-12 días hábiles' },
+  cl:   { label: 'Chile', est: '$380-620 MXN', days: '7-12 días hábiles' },
+  pe:   { label: 'Perú', est: '$350-580 MXN', days: '7-12 días hábiles' },
+  br:   { label: 'Brasil', est: '$420-700 MXN', days: '8-14 días hábiles' },
+  es:   { label: 'España', est: '$500-850 MXN', days: '8-14 días hábiles' },
+  fr:   { label: 'Francia', est: '$520-880 MXN', days: '8-14 días hábiles' },
+  de:   { label: 'Alemania', est: '$520-880 MXN', days: '8-14 días hábiles' },
+  uk:   { label: 'Reino Unido', est: '$500-860 MXN', days: '8-14 días hábiles' },
+  it:   { label: 'Italia', est: '$520-880 MXN', days: '8-14 días hábiles' },
+  otro: { label: 'Internacional', est: 'Cotizar por WhatsApp', days: '10-20 días hábiles' },
+};
+
+function getShippingCost() {
+  const pais = document.getElementById('fPais')?.value;
+  if (!pais || !SHIP_COSTS[pais]) return null;
+  const z = SHIP_COSTS[pais];
+  const subtotal = (S.w && S.h && S.type) ? S.w * S.h * RATES[S.type] : 0;
+  const cost = (z.free_above && subtotal >= z.free_above) ? 0 : z.cost;
+  return { ...z, actualCost: cost };
+}
+
+function updateShipping() {
+  const ship = getShippingCost();
+  const rShip = document.getElementById('rShip');
+  const rDays = document.getElementById('rShipDays');
+  if (!rShip) return;
+  if (ship) {
+    if (ship.actualCost === 0 && ship.free_above) {
+      rShip.textContent = '🎉 Gratis';
+      rShip.style.color = '#10B981';
+    } else {
+      rShip.textContent = fmt(ship.actualCost) + ' MXN';
+      rShip.style.color = '';
+    }
+    rShip.classList.remove('empty');
+    if (rDays) rDays.textContent = ship.days + ' hábiles · ' + ship.label;
+  } else {
+    rShip.textContent = 'Selecciona país';
+    rShip.classList.add('empty');
+    if (rDays) rDays.textContent = '';
+  }
+  recalc();
+}
+
+// ── FORM CHECK ──
+function tick() {
+  const ok = S.type && S.w && S.h && (S.designFile || S.designName) &&
+    document.getElementById('fNom').value.trim() &&
+    document.getElementById('fTel').value.trim() &&
+    document.getElementById('fMail').value.trim() &&
+    document.getElementById('fDir').value.trim() &&
+    document.getElementById('fPais')?.value;
+  document.getElementById('btnOrder').disabled = !ok;
+
+  // Step 4 badge
+  if (document.getElementById('fNom').value.trim() && document.getElementById('fTel').value.trim()) {
+    document.getElementById('step4').classList.add('done');
+    document.getElementById('badge4').style.opacity = '1';
+  }
+}
+
+// ── SUBMIT ──
+async function sendOrder() {
+  const btn = document.getElementById('btnOrder');
+  btn.disabled = true;
+  btn.innerHTML = '<span style="opacity:.6">Procesando...</span>';
+
+  const area     = S.w * S.h;
+  const rate     = RATES[S.type];
+  const subtotal = area * rate;
+  const ship     = getShippingCost();
+  const shipCost = ship ? ship.actualCost : 0;
+  const total    = Math.round(subtotal + shipCost);
+  const orderId  = 'AF-' + Date.now().toString(36).toUpperCase();
+
+  const payload = {
+    order_id:      orderId,
+    tipo:          S.type,
+    tipo_nombre:   TYPE_NAMES[S.type],
+    ancho_cm:      S.w,
+    alto_cm:       S.h,
+    area_cm2:      area,
+    precio_cm2:    rate,
+    subtotal_mxn:  Math.round(subtotal),
+    envio_mxn:     shipCost,
+    total_mxn:     total,
+    diseno_fuente: designGalleryMode ? 'galeria' : 'archivo',
+    diseno_nombre: S.designName || null,
+    nombre:        document.getElementById('fNom').value.trim(),
+    apellido:      document.getElementById('fApe').value.trim(),
+    telefono:      document.getElementById('fTel').value.trim(),
+    email:         document.getElementById('fMail').value.trim(),
+    direccion:     document.getElementById('fDir').value.trim(),
+    pais:          document.getElementById('fPais')?.value || null,
+    factura:       document.getElementById('fFact').value,
+    notas:         document.getElementById('fNot').value.trim() || null,
+    estado:        'pendiente_pago',
+  };
+
+  // 1. Save order to Supabase first
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/ordenes_produccion`, {
+      method: 'POST',
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal',
+      },
+      body: JSON.stringify(payload),
+    });
+  } catch(e) { /* continue to Stripe anyway */ }
+
+  // 2. Redirect to Stripe Checkout
+  // In production, you'll call your backend to create a Stripe session
+  // For now, show the order confirmation modal
+  // TODO: Replace with actual Stripe integration:
+  //   const stripe = Stripe(STRIPE_KEY);
+  //   const response = await fetch('/api/create-checkout', { method: 'POST', body: JSON.stringify({ orderId, total, email: payload.email }) });
+  //   const { sessionId } = await response.json();
+  //   await stripe.redirectToCheckout({ sessionId });
+
+  // DEMO: Show success modal (replace with Stripe redirect in production)
+  document.getElementById('modalOrderId').textContent = '# ' + orderId;
+  document.getElementById('modalTotal').textContent = fmt(total) + ' MXN';
+  document.getElementById('orderOverlay').classList.add('open');
+  btn.innerHTML = '🔒 Pagar y confirmar orden →';
+  btn.disabled = false;
+}
+
+function closeOrderModal() {
+  document.getElementById('orderOverlay').classList.remove('open');
+}
+document.getElementById('orderOverlay').addEventListener('click', e => { if (e.target === document.getElementById('orderOverlay')) closeOrderModal(); });
+
+// ── UTILS ──
+function smoothTo(id) { document.getElementById(id)?.scrollIntoView({ behavior:'smooth' }); }
+/* ═══════════════════════════════════
+   CONVERSION LOGIC
+═══════════════════════════════════ */
+
+// ── PROGRESSIVE STEPS ──
+function unlockStep(n) {
+  const step = document.getElementById('step' + n);
+  if (!step) return;
+  step.classList.remove('locked');
+  step.classList.add('unlocked');
+  const body = step.querySelector('.step-body');
+  if (body) body.style.display = '';
+  // Mark previous step as done in progress bar
+  for (let i = 1; i < n; i++) {
+    const dot = document.getElementById('cp' + i);
+    const lbl = document.getElementById('cpl' + i);
+    const line = document.getElementById('cpline' + i);
+    if (dot) { dot.classList.remove('active'); dot.classList.add('done'); dot.textContent = '✓'; }
+    if (lbl) { lbl.classList.remove('active'); lbl.classList.add('done'); }
+    if (line) line.classList.add('done');
+  }
+  // Mark current step as active
+  const cd = document.getElementById('cp' + n);
+  const cl = document.getElementById('cpl' + n);
+  if (cd) { cd.classList.add('active'); cd.textContent = n; }
+  if (cl) cl.classList.add('active');
+  setTimeout(() => {
+    step.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 120);
+}
+
+// Patch selectType
+const _origSelectType = window.selectType;
+window.selectType = function(el, type) {
+  _origSelectType(el, type);
+  unlockStep(2);
+};
+
+// Patch pickSize
+const _origPickSize = window.pickSize;
+window.pickSize = function(el, w, h) {
+  _origPickSize(el, w, h);
+  unlockStep(3);
+};
+
+// Patch customSize
+const _origCustomSize = window.customSize;
+window.customSize = function() {
+  _origCustomSize();
+  if (S.w && S.h) unlockStep(3);
+};
+
+// Patch processFile
+const _origProcessFile = window.processFile;
+window.processFile = function(f) {
+  _origProcessFile(f);
+  unlockStep(4);
+};
+
+// Patch pickDesign
+const _origPickDesign = window.pickDesign;
+window.pickDesign = function(el, id, label, emoji) {
+  _origPickDesign(el, id, label, emoji);
+  unlockStep(4);
+};
+
+// ── ANIMATED PRICE ──
+let _lastPrice = 0;
+const _origRecalc = window.recalc;
+window.recalc = function() {
+  _origRecalc();
+  if (S.type && S.w && S.h) {
+    const subtotal = S.w * S.h * RATES[S.type];
+    const ship = getShippingCost();
+    const shipCost = ship ? ship.actualCost : 0;
+    const total = subtotal + shipCost;
+    // Update subtotal row
+    const rSub = document.getElementById('rSubtotal');
+    if (rSub) { rSub.textContent = fmt(subtotal) + ' MXN'; rSub.classList.remove('empty'); }
+    if (Math.abs(total - _lastPrice) > 0.1) {
+      _animatePrice(_lastPrice, total);
+      _lastPrice = total;
+      const sp = document.getElementById('stickyPrice');
+      if (sp) { sp.textContent = fmt(total) + ' MXN'; sp.style.display = ''; }
+    }
+  }
+};
+
+function _animatePrice(from, to) {
+  const el = document.getElementById('ppTotal');
+  if (!el) return;
+  const steps = 28;
+  let i = 0;
+  const diff = to - from;
+  const t = setInterval(() => {
+    i++;
+    const eased = 1 - Math.pow(1 - i/steps, 3);
+    el.textContent = fmt(from + diff * eased) + ' MXN';
+    if (i >= steps) {
+      clearInterval(t);
+      el.textContent = fmt(to) + ' MXN';
+      el.classList.add('price-pop');
+      setTimeout(() => el.classList.remove('price-pop'), 400);
+    }
+  }, 16);
+}
+
+// ── FORM VALIDATION ──
+function _validateField(inputId, wrapId, validator, errMsg) {
+  const inp = document.getElementById(inputId);
+  const wrap = document.getElementById(wrapId);
+  if (!inp || !wrap) return;
+  const val = inp.value.trim();
+  const msg = wrap.querySelector('.field-msg');
+  if (!val) { wrap.classList.remove('success','error'); if(msg) msg.textContent=''; return; }
+  const ok = validator(val);
+  wrap.classList.toggle('success', ok);
+  wrap.classList.toggle('error', !ok);
+  if (msg) msg.textContent = ok ? '✓ Perfecto' : errMsg;
+}
+
+document.getElementById('fNom')?.addEventListener('blur', () =>
+  _validateField('fNom','field-nom', v => v.length >= 2, 'Ingresa tu nombre')
+);
+document.getElementById('fTel')?.addEventListener('blur', () =>
+  _validateField('fTel','field-tel', v => /^[\d\s\+\-\(\)]{8,}$/.test(v), 'Número inválido')
+);
+document.getElementById('fMail')?.addEventListener('blur', () =>
+  _validateField('fMail','field-mail', v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), 'Email inválido')
+);
+
+// ── STICKY CTA ──
+window.addEventListener('scroll', () => {
+  const sc = document.getElementById('stickyCta');
+  if (sc) sc.classList.toggle('show', window.scrollY > 500);
+});
+
+// ── WA BUBBLE ──
+setTimeout(() => {
+  const b = document.getElementById('waBubble');
+  if (b) {
+    b.style.display = 'block';
+    setTimeout(() => {
+      b.style.transition = 'opacity .5s';
+      b.style.opacity = '0';
+      setTimeout(() => b.style.display = 'none', 500);
+    }, 5000);
+  }
+}, 3000);
+
+// ── VIEWING NOW ──
+const _vEl = document.getElementById('viewingCount');
+if (_vEl) {
+  let _vBase = 8 + Math.floor(Math.random() * 10);
+  setInterval(() => {
+    _vBase = Math.max(5, Math.min(24, _vBase + (Math.random() > .5 ? 1 : -1)));
+    _vEl.textContent = _vBase;
+  }, 7000);
+}
+
+// ── SOCIAL PROOF TICKER ──
+const _PROOF = [
+  { name:'María G.', action:'ordenó un cuadro acrílico 60×80', time:'hace 3 min · Guadalajara', av:'👩' },
+  { name:'Carlos M.', action:'configuró un neón personalizado', time:'hace 7 min · Monterrey', av:'👨' },
+  { name:'Sofía R.', action:'pidió impresión en tela 40×60', time:'hace 12 min · CDMX', av:'👩‍🦱' },
+  { name:'Diego V.', action:'ordenó cuadro para su empresa', time:'hace 18 min · Guadalajara', av:'👨‍💼' },
+  { name:'Valentina C.', action:'configuró cuadro 80×120 tela', time:'hace 24 min · Puebla', av:'👩‍💼' },
+  { name:'Ana L.', action:'envió orden a Madrid, España', time:'hace 31 min · Internacional', av:'✈️' },
+];
+let _pIdx = 0;
+function _showTicker() {
+  const tk = document.getElementById('proofTicker');
+  if (!tk) return;
+  const ev = _PROOF[_pIdx++ % _PROOF.length];
+  document.getElementById('ptAvatar').textContent = ev.av;
+  document.getElementById('ptName').textContent = ev.name;
+  document.getElementById('ptAction').textContent = ev.action;
+  document.getElementById('ptTime').textContent = ev.time;
+  tk.classList.add('show');
+  setTimeout(() => tk.classList.remove('show'), 4500);
+}
+setTimeout(() => { _showTicker(); setInterval(_showTicker, 14000); }, 8000);
+
+// ── EXIT INTENT ──
+let _exitShown = false;
+document.addEventListener('mouseleave', e => {
+  if (e.clientY < 5 && !_exitShown) {
+    _exitShown = true;
+    setTimeout(() => document.getElementById('exitOverlay')?.classList.add('open'), 200);
+  }
+});
+function closeExit() { document.getElementById('exitOverlay')?.classList.remove('open'); }
+document.getElementById('exitOverlay')?.addEventListener('click', e => { if (e.target.id === 'exitOverlay') closeExit(); });
+
+// ── STAT COUNTERS ──
+const _statEls = document.querySelectorAll('.stat-n[data-target]');
+new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseInt(el.dataset.target);
+    let cur = 0; const step = target / 48;
+    const t = setInterval(() => {
+      cur = Math.min(cur + step, target);
+      el.textContent = Math.floor(cur);
+      if (cur >= target) clearInterval(t);
+    }, 28);
+  });
+}, { threshold: 0.4 }).observe(_statEls[0] || document.body);
+_statEls.forEach(el => {
+  new IntersectionObserver((entries) => {
+    if (!entries[0].isIntersecting) return;
+    const target = parseInt(el.dataset.target);
+    let cur = 0;
+    const t = setInterval(() => {
+      cur = Math.min(cur + target/48, target);
+      el.textContent = Math.floor(cur);
+      if (cur >= target) clearInterval(t);
+    }, 28);
+  }, { threshold: 0.4 }).observe(el);
+});
+
+
+// ── MOBILE MENU ──
+function toggleMobileMenu() {
+  const m = document.getElementById('mobileMenu');
+  m.classList.toggle('open');
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu')?.classList.remove('open');
+}
+document.addEventListener('click', e => {
+  const menu = document.getElementById('mobileMenu');
+  const btn = document.getElementById('hamburgerBtn');
+  if (menu && !menu.contains(e.target) && btn && !btn.contains(e.target)) {
+    menu.classList.remove('open');
+  }
+});
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', () => {
+  const b = document.getElementById('waBubble');
+  if (b) b.style.display = 'none';
+  // step 2,3,4 start locked - hide their bodies
+  ['step2','step3','step4'].forEach(id => {
+    const s = document.getElementById(id);
+    if (s) {
+      const body = s.querySelector('.step-body');
+      if (body) body.style.display = 'none';
+    }
+  });
+});
+
+</script>
+
+<!-- WA FLOAT -->
+<div class="wa-float" id="waFloat">
+  <div class="wa-bubble" id="waBubble">¿Tienes dudas? ¡Escríbenos! 👋</div>
+  <a href="https://wa.me/521234567890?text=Hola,%20quiero%20información%20sobre%20mis%20cuadros%20personalizados" target="_blank" class="wa-btn">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+  </a>
+</div>
+
+
+<!-- FLOATING INSTAGRAM -->
+<a href="https://instagram.com/" target="_blank" title="Instagram"
+  style="position:fixed;bottom:96px;right:28px;z-index:849;
+  width:54px;height:54px;border-radius:999px;
+  background:radial-gradient(circle at 30% 110%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(214,36,159,.4);
+  transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s;
+  text-decoration:none;"
+  onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 8px 28px rgba(214,36,159,.55)'"
+  onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 20px rgba(214,36,159,.4)'">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  </svg>
+</a>
+</body>
+</html>
