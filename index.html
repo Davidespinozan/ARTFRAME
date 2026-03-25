@@ -2684,7 +2684,7 @@ window.addEventListener('scroll', () => {
 // ── WA BUBBLE ──
 setTimeout(() => {
   const b = document.getElementById('waBubble');
-  if (b) {
+  if (b && window.innerWidth >= 900) {
     b.style.display = 'block';
     setTimeout(() => {
       b.style.transition = 'opacity .5s';
