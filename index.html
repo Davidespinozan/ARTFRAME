@@ -414,7 +414,7 @@ nav {
   padding: 48px 16px 60px;
 }
 .config-inner { max-width: 1240px; margin: 0 auto; }
-.config-intro { margin-bottom: 56px; }
+.config-intro { margin-bottom: 28px; }
 .config-layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -1517,7 +1517,11 @@ footer {
       <span class="section-tag">Nuestros diseños</span>
       <h2 class="section-h">Galería de<br>inspiración</h2>
     </div>
-    <button class="btn-ghost" style="align-self:flex-end">Ver todos →</button>
+    <button class="btn-ghost" style="align-self:flex-end"
+      onclick="document.querySelectorAll('.cat-btn')[0].click();
+               document.getElementById('galeria').scrollIntoView({behavior:'smooth'})">
+      Ver todos →
+    </button>
   </div>
 
   <div class="gallery-cats" id="galleryCats">
@@ -1834,10 +1838,10 @@ footer {
 <!-- STATS BAND -->
 <div class="stats-band">
   <div class="stats-inner">
-    <div class="stat-item"><span class="stat-n" data-target="847">0</span><span class="stat-l">Cuadros producidos</span></div>
-    <div class="stat-item"><span class="stat-n" data-target="98">0</span><span class="stat-l">% clientes satisfechos</span></div>
-    <div class="stat-item"><span class="stat-n" data-target="23">0</span><span class="stat-l">Países con envío</span></div>
-    <div class="stat-item"><span class="stat-n" data-target="5">0</span><span class="stat-l">Años de experiencia</span></div>
+    <div class="stat-item"><span class="stat-n" data-target="124">0</span><span class="stat-l">Cuadros producidos</span></div>
+    <div class="stat-item"><span class="stat-n" data-target="100">0</span><span class="stat-l">% satisfacción garantizada</span></div>
+    <div class="stat-item"><span class="stat-n" data-target="15">0</span><span class="stat-l">Países con envío</span></div>
+    <div class="stat-item"><span class="stat-n" data-target="3">0</span><span class="stat-l">Años de experiencia</span></div>
   </div>
 </div>
 
@@ -2124,6 +2128,8 @@ const GALLERY_DATA = [
   { id:'g8', label:'Corazón neón', type:'neon',                    grad:'linear-gradient(160deg,#2d1b69,#5b21b6,#7c3aed)', src:'https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/Corazon%20neon.jpg' },
   { id:'g9', label:'Leopardo', type:'acrilico',                    grad:'linear-gradient(135deg,#1c1917,#44403c,#78716c)', src:'https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/Leopardo.jpg' },
   { id:'g10',label:'Montaña minimalista', type:'tela',             grad:'linear-gradient(160deg,#0f2942,#1e3a5f,#1e5799)', src:'https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/Montana%20minimalista.jpg' },
+  { id:'g11',label:'Flores abstractas', type:'acrilico',          grad:'linear-gradient(160deg,#500724,#881337,#be123c)', src:'https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/Flores%20abstractas.jpg' },
+  { id:'g12',label:'León majestuoso', type:'tela',                grad:'linear-gradient(160deg,#78350f,#92400e,#b45309)', src:'https://ltveorvqvvlyivjwxjlc.supabase.co/storage/v1/object/public/artframe/Leon%20majestuoso.jpg' },
 ];
 
 const DESIGN_GALLERY = [
@@ -2729,17 +2735,28 @@ function closeExit() { document.getElementById('exitOverlay')?.classList.remove(
 document.getElementById('exitOverlay')?.addEventListener('click', e => { if (e.target.id === 'exitOverlay') closeExit(); });
 
 // ── STAT COUNTERS ──
-document.querySelectorAll('.stat-n[data-target]').forEach(el => {
-  new IntersectionObserver((entries) => {
-    if (!entries[0].isIntersecting) return;
+const _statEls = document.querySelectorAll('.stat-n[data-target]');
+const _statObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
     const target = parseInt(el.dataset.target);
     let cur = 0;
-    const t = setInterval(() => {
-      cur = Math.min(cur + target / 48, target);
+    const increment = target / 60;
+    const timer = setInterval(() => {
+      cur = Math.min(cur + increment, target);
       el.textContent = Math.floor(cur);
-      if (cur >= target) clearInterval(t);
-    }, 28);
-  }, { threshold: 0.4 }).observe(el);
+      if (cur >= target) {
+        el.textContent = target;
+        clearInterval(timer);
+      }
+    }, 20);
+    _statObs.unobserve(el);
+  });
+}, { threshold: 0.3, rootMargin: '0px 0px -50px 0px' });
+_statEls.forEach(el => {
+  el.textContent = '0';
+  _statObs.observe(el);
 });
 
 
