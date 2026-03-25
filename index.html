@@ -92,7 +92,7 @@ body {
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 900;
   height: 62px; display: flex; align-items: center;
-  padding: 0 56px;
+  padding: 0 16px;
   background: rgba(6,6,10,.7);
   backdrop-filter: blur(28px) saturate(180%);
   border-bottom: 1px solid var(--line);
@@ -109,7 +109,7 @@ nav {
   display: flex; align-items: center; justify-content: center;
   font-size: .7rem; box-shadow: 0 4px 16px var(--a-glow);
 }
-.n-links { display: flex; gap: 32px; margin: 0 auto; }
+.n-links { display: none; gap: 32px; margin: 0 auto; }
 .n-links a {
   font-size: .74rem; font-weight: 500; color: var(--muted);
   text-decoration: none; letter-spacing: .02em;
@@ -151,7 +151,7 @@ nav {
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   text-align: center;
-  padding: 100px 24px 60px;
+  padding: 90px 16px 48px;
 }
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
@@ -169,7 +169,7 @@ nav {
 
 .hero-h1 {
   font-family: 'Syne';
-  font-size: clamp(3.2rem, 8vw, 7.5rem);
+  font-size: clamp(2.2rem, 8vw, 7.5rem);
   font-weight: 800; line-height: .92;
   letter-spacing: -.03em; color: var(--white);
   max-width: 1000px; margin-bottom: 28px;
@@ -182,15 +182,16 @@ nav {
 }
 
 .hero-sub {
-  font-size: 1.05rem; line-height: 1.82;
+  font-size: .88rem; line-height: 1.82;
   color: var(--dim); max-width: 580px;
-  margin-bottom: 48px; font-weight: 300;
+  margin-bottom: 36px; font-weight: 300;
   opacity: 0; animation: fu .9s var(--ease) .32s forwards;
 }
 
 .hero-cta {
   display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
-  margin-bottom: 80px;
+  flex-direction: column; align-items: center;
+  margin-bottom: 48px;
   opacity: 0; animation: fu .9s var(--ease) .44s forwards;
 }
 
@@ -224,6 +225,7 @@ nav {
 /* Material pills */
 .material-pills {
   display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+  flex-direction: column; align-items: center;
   opacity: 0; animation: fu .9s var(--ease) .56s forwards;
 }
 .mpill {
@@ -244,7 +246,7 @@ nav {
 ═══════════════════════════════════ */
 .section {
   position: relative; z-index: 1;
-  padding: 100px 56px;
+  padding: 48px 16px;
   max-width: 1240px; margin: 0 auto;
 }
 .section-tag {
@@ -261,15 +263,15 @@ nav {
 .section-line {
   height: 1px; background: var(--line);
   position: relative; z-index: 1;
-  margin: 0 56px;
+  margin: 0 16px;
 }
 
 /* ═══════════════════════════════════
    MATERIALS SECTION
 ═══════════════════════════════════ */
 .materials-grid {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 16px; margin-top: 52px;
+  display: grid; grid-template-columns: 1fr;
+  gap: 16px; margin-top: 36px;
 }
 .mat-card {
   background: var(--panel);
@@ -323,11 +325,11 @@ nav {
 }
 .gallery-cats { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
 .cat-btn {
-  padding: 7px 18px;
+  padding: 10px 18px; min-height: 44px;
   background: var(--panel); border: 1px solid var(--line);
   border-radius: 999px; font-size: .7rem; font-weight: 600;
   color: var(--muted); cursor: pointer;
-  transition: all .2s;
+  transition: all .2s; display: inline-flex; align-items: center;
 }
 .cat-btn:hover { color: var(--white); border-color: var(--line2); }
 .cat-btn.active {
@@ -335,8 +337,8 @@ nav {
 }
 .gallery-masonry {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 .gal-item {
   border-radius: 16px; overflow: hidden;
@@ -345,8 +347,8 @@ nav {
   transition: all .3s var(--ease);
 }
 .gal-item:hover { transform: scale(1.02); box-shadow: 0 16px 48px rgba(0,0,0,.4); border-color: var(--a3); }
-.gal-item.tall { grid-row: span 2; }
-.gal-item.wide { grid-column: span 2; }
+.gal-item.tall { grid-row: span 1; }
+.gal-item.wide { grid-column: span 1; }
 .gal-ph {
   width: 100%; height: 100%; min-height: 180px;
   display: flex; flex-direction: column;
@@ -357,21 +359,19 @@ nav {
 .gal-ph-label { font-size: .68rem; color: var(--muted); font-weight: 500; text-align: center; }
 .gal-overlay {
   position: absolute; inset: 0;
-  background: rgba(6,6,10,.85);
-  backdrop-filter: blur(4px);
-  opacity: 0; transition: opacity .3s;
+  background: linear-gradient(transparent 30%, rgba(6,6,10,.88) 100%);
+  opacity: 1; transition: opacity .3s;
   display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 12px;
-  padding: 20px; text-align: center;
+  align-items: center; justify-content: flex-end; gap: 8px;
+  padding: 12px; text-align: center;
 }
-.gal-item:hover .gal-overlay { opacity: 1; }
 .gal-overlay-title { font-family: 'Syne'; font-size: .88rem; font-weight: 700; }
 .gal-overlay-sub { font-size: .7rem; color: var(--dim); }
 .gal-overlay-btn {
   background: var(--a2); color: var(--white);
-  padding: 9px 22px; border-radius: 999px;
+  padding: 12px 24px; min-height: 44px; border-radius: 999px;
   font-size: .68rem; font-weight: 600; border: none; cursor: pointer;
-  transition: all .2s;
+  transition: all .2s; display: inline-flex; align-items: center;
 }
 .gal-overlay-btn:hover { background: var(--a3); }
 .gal-type-badge {
@@ -389,14 +389,14 @@ nav {
   background: var(--deep);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  padding: 80px 56px 100px;
+  padding: 48px 16px 60px;
 }
 .config-inner { max-width: 1240px; margin: 0 auto; }
 .config-intro { margin-bottom: 56px; }
 .config-layout {
   display: grid;
-  grid-template-columns: 1fr 400px;
-  gap: 28px; align-items: start;
+  grid-template-columns: 1fr;
+  gap: 24px; align-items: start;
 }
 
 /* Steps */
@@ -433,7 +433,7 @@ nav {
 .step-body { padding: 0 24px 24px; }
 
 /* Type selector */
-.type-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.type-cards { display: grid; grid-template-columns: 1fr; gap: 10px; }
 .type-card {
   background: var(--panel2); border: 1.5px solid var(--line);
   border-radius: 16px; padding: 20px 16px;
@@ -464,13 +464,14 @@ nav {
 /* Size */
 .size-mode-tabs { display: flex; gap: 6px; margin-bottom: 18px; }
 .smt {
-  padding: 7px 16px; border-radius: 999px;
+  padding: 10px 16px; min-height: 44px; border-radius: 999px;
   background: var(--panel); border: 1px solid var(--line);
   font-size: .68rem; font-weight: 600; color: var(--muted);
   cursor: pointer; transition: all .2s;
+  display: inline-flex; align-items: center;
 }
 .smt.active { background: var(--a2); border-color: var(--a2); color: #fff; }
-.preset-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+.preset-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .sz-btn {
   background: var(--panel2); border: 1.5px solid var(--line);
   border-radius: 12px; padding: 12px 8px; text-align: center;
@@ -529,7 +530,7 @@ nav {
 .upload-clear:hover { background: #dc2626; }
 input[type=file] { display: none; }
 
-.des-gallery { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+.des-gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
 .dg-item {
   aspect-ratio: 1; border-radius: 10px; overflow: hidden;
   border: 2px solid transparent; cursor: pointer;
@@ -544,7 +545,7 @@ input[type=file] { display: none; }
 
 /* Form */
 .form-fields { display: flex; flex-direction: column; gap: 14px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-row { display: grid; grid-template-columns: 1fr; gap: 12px; }
 .field label { display: block; font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
 .field input, .field select, .field textarea {
   width: 100%; background: var(--panel2); border: 1px solid var(--line);
@@ -564,7 +565,7 @@ input[type=file] { display: none; }
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 24px; overflow: hidden;
-  position: sticky; top: 80px;
+  position: static;
 }
 .pp-preview {
   aspect-ratio: 4/3; background: var(--void);
@@ -645,7 +646,7 @@ input[type=file] { display: none; }
 /* ═══════════════════════════════════
    HOW IT WORKS
 ═══════════════════════════════════ */
-.how-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-top: 52px; }
+.how-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 36px; }
 .how-card {
   background: var(--panel); border: 1px solid var(--line);
   border-radius: 20px; padding: 28px 24px;
@@ -673,7 +674,7 @@ input[type=file] { display: none; }
 .overlay.open { opacity: 1; pointer-events: all; }
 .modal-box {
   background: var(--surface); border: 1px solid var(--line2);
-  border-radius: 28px; padding: 52px 44px;
+  border-radius: 28px; padding: 32px 20px;
   max-width: 480px; width: 100%; text-align: center;
   transform: scale(.94) translateY(20px);
   transition: transform .4s var(--ease);
@@ -715,9 +716,9 @@ input[type=file] { display: none; }
 footer {
   position: relative; z-index: 1;
   border-top: 1px solid var(--line);
-  padding: 48px 56px 36px;
+  padding: 32px 16px 24px;
 }
-.ft-inner { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+.ft-inner { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 28px; margin-bottom: 36px; }
 .ft-brand {}
 .ft-logo { display: flex; align-items: center; gap: 10px; font-family: 'Syne'; font-size: 1rem; font-weight: 800; margin-bottom: 14px; }
 .ft-logo-mark { width: 28px; height: 28px; border-radius: 7px; background: linear-gradient(135deg, var(--a1), var(--a3)); display: flex; align-items: center; justify-content: center; font-size: .7rem; }
@@ -726,43 +727,106 @@ footer {
 .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 .ft-col a { font-size: .74rem; color: var(--muted); text-decoration: none; transition: color .2s; }
 .ft-col a:hover { color: var(--white); }
-.ft-bottom { max-width: 1240px; margin: 0 auto; border-top: 1px solid var(--line); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.ft-bottom { max-width: 1240px; margin: 0 auto; border-top: 1px solid var(--line); padding-top: 24px; display: flex; flex-direction: column; text-align: center; align-items: center; flex-wrap: wrap; gap: 12px; }
 .ft-copy { font-size: .66rem; color: var(--muted); }
 
 /* ═══════════════════════════════════
-   RESPONSIVE
+   RESPONSIVE — MOBILE FIRST
+   Base = 320px+, scale up with min-width
 ═══════════════════════════════════ */
-@media(max-width:1100px){
-  .ship-grid { grid-template-columns: 1fr !important; }
-  .policy-grid { grid-template-columns: 1fr 1fr !important; }
 
-  nav { padding: 0 24px; } .n-links { display: none; }
+/* ── TABLET (640px+) ── */
+@media(min-width:640px){
+  .hero { padding: 100px 24px 60px; }
+  .hero-sub { font-size: .95rem; }
+  .hero-cta { flex-direction: row; }
+  .material-pills { flex-direction: row; }
   .section { padding: 72px 24px; }
   .section-line { margin: 0 24px; }
   .config-wrapper { padding: 64px 24px 80px; }
-  .config-layout { grid-template-columns: 1fr; }
-  .price-panel { position: static; }
+  .type-cards { grid-template-columns: repeat(3,1fr); }
+  .preset-grid { grid-template-columns: repeat(3,1fr); }
+  .form-row { grid-template-columns: 1fr 1fr; }
+  .des-gallery { grid-template-columns: repeat(4,1fr); }
+  .gallery-masonry { grid-template-columns: repeat(2,1fr); }
+  .gal-item.tall { grid-row: span 2; }
+  .gal-item.wide { grid-column: span 2; }
   .materials-grid { grid-template-columns: 1fr 1fr; }
-  .gallery-masonry { grid-template-columns: repeat(3,1fr); }
   .how-grid { grid-template-columns: 1fr 1fr; }
   .ft-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
   footer { padding: 40px 24px 28px; }
-  .ft-bottom { flex-direction: column; text-align: center; }
+  .exit-h { font-size: 1.4rem; }
+  .exit-body { padding: 24px 30px 32px; }
+  .modal-box { padding: 40px 32px; }
+  .cp-label { display: inline; }
+  .cp-dot { width: 32px; height: 32px; border-radius: 10px; font-size: .68rem; }
+  .cp-line { margin: 0 8px; }
+  .ship-grid { grid-template-columns: 1fr !important; }
+  .policy-grid { grid-template-columns: 1fr 1fr !important; }
 }
-@media(max-width:640px){
-  .policy-grid { grid-template-columns: 1fr !important; }
 
-  .hero-h1 { font-size: 2.8rem; }
-  .material-pills { flex-direction: column; align-items: center; }
-  .materials-grid, .how-grid { grid-template-columns: 1fr; }
-  .gallery-masonry { grid-template-columns: 1fr 1fr; }
-  .gal-item.wide { grid-column: span 1; }
-  .type-cards { grid-template-columns: 1fr; }
-  .preset-grid { grid-template-columns: 1fr 1fr; }
-  .form-row { grid-template-columns: 1fr; }
-  .des-gallery { grid-template-columns: repeat(3,1fr); }
-  .ft-inner { grid-template-columns: 1fr; }
-  .hero-cta { flex-direction: column; align-items: center; }
+/* ── LAPTOP (900px+) ── */
+@media(min-width:900px){
+  nav { padding: 0 32px; }
+  .n-hamburger { display: none; }
+  .n-links { display: flex; }
+  .n-actions .n-btn-ghost { display: inline-flex; }
+  .section { padding: 80px 40px; }
+  .section-line { margin: 0 40px; }
+  .config-wrapper { padding: 72px 40px 90px; }
+  .gallery-masonry { grid-template-columns: repeat(3,1fr); }
+  .testi-grid { grid-template-columns: repeat(3,1fr); }
+  .testimonials { padding: 60px 40px; }
+  .stats-band { padding: 40px; }
+  .stats-inner { grid-template-columns: repeat(4,1fr); }
+  .stat-item { padding: 0 20px; border-right: 1px solid var(--line); border-bottom: none; }
+  .stat-item:nth-child(even) { border-right: 1px solid var(--line); }
+  .stat-item:last-child { border-right: none; }
+  .stat-n { font-size: 2.8rem; }
+  .trust-bar { padding: 10px 40px; gap: 32px; flex-wrap: wrap; justify-content: center; overflow: visible; }
+  .sticky-cta { padding: 14px 40px; flex-direction: row; gap: 20px; }
+  .sc-btn { width: auto; }
+  .sc-sub { display: block; }
+  .wa-float { bottom: 28px; right: 28px; }
+  .wa-btn { width: 58px; height: 58px; }
+  .proof-ticker { bottom: 100px; left: 24px; }
+  footer { padding: 44px 40px 32px; }
+  .hero-sub { font-size: 1.05rem; }
+  .hero { padding: 100px 40px 60px; }
+  .ship-grid { grid-template-columns: 1fr 1fr !important; }
+}
+
+/* ── DESKTOP (1100px+) ── */
+@media(min-width:1100px){
+  nav { padding: 0 56px; }
+  .section { padding: 100px 56px; }
+  .section-line { margin: 0 56px; }
+  .config-wrapper { padding: 80px 56px 100px; }
+  .config-layout { grid-template-columns: 1fr 400px; gap: 28px; }
+  .price-panel { position: sticky; top: 80px; }
+  .materials-grid { grid-template-columns: repeat(3,1fr); }
+  .gallery-masonry { grid-template-columns: repeat(4,1fr); gap: 12px; }
+  .how-grid { grid-template-columns: repeat(4,1fr); }
+  .ft-inner { grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; }
+  .ft-bottom { flex-direction: row; text-align: left; }
+  footer { padding: 48px 56px 36px; }
+  .trust-bar { padding: 10px 56px; gap: 40px; }
+  .sticky-cta { padding: 14px 56px; }
+  .testimonials { padding: 80px 56px; }
+  .stats-band { padding: 48px 56px; }
+  .hero { padding: 100px 24px 60px; }
+  .hero-cta { margin-bottom: 80px; }
+  .ship-grid { grid-template-columns: repeat(3,1fr) !important; }
+  .policy-grid { grid-template-columns: repeat(4,1fr) !important; }
+}
+
+/* ── HOVER DEVICES — restore gallery hover behavior ── */
+@media(hover:hover) and (min-width:900px){
+  .gal-overlay {
+    opacity: 0; background: rgba(6,6,10,.85);
+    justify-content: center; padding: 20px;
+  }
+  .gal-item:hover .gal-overlay { opacity: 1; }
 }
 
 /* ═══════════════════════════════════
@@ -774,11 +838,13 @@ footer {
   position: relative; z-index: 1;
   background: var(--surface);
   border-bottom: 1px solid var(--line);
-  padding: 10px 56px;
-  display: flex; align-items: center; justify-content: center;
-  gap: 40px; flex-wrap: wrap;
-  overflow: hidden;
+  padding: 10px 16px;
+  display: flex; align-items: center;
+  gap: 16px; flex-wrap: nowrap;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.trust-bar::-webkit-scrollbar { display: none; }
 .trust-bar::before {
   content: '';
   position: absolute; top: 0; left: -100%;
@@ -797,7 +863,7 @@ footer {
 
 /* ── SOCIAL PROOF TICKER ── */
 .proof-ticker {
-  position: fixed; bottom: 100px; left: 24px; z-index: 800;
+  position: fixed; bottom: 86px; left: 12px; z-index: 800;
   background: var(--surface);
   border: 1px solid var(--line2);
   border-left: 3px solid var(--a3);
@@ -831,16 +897,17 @@ footer {
   background: rgba(6,6,10,.92);
   backdrop-filter: blur(20px);
   border-top: 1px solid var(--line2);
-  padding: 14px 56px;
+  padding: 12px 16px;
   display: flex; align-items: center; justify-content: space-between;
-  gap: 20px;
+  flex-direction: column; gap: 10px;
   transform: translateY(100%);
   transition: transform .4s var(--ease);
 }
+.sc-btn { width: 100%; text-align: center; }
 .sticky-cta.show { transform: translateY(0); }
 .sc-left { flex: 1; }
 .sc-title { font-family: 'Syne'; font-size: .88rem; font-weight: 700; margin-bottom: 2px; }
-.sc-sub { font-size: .68rem; color: var(--muted); }
+.sc-sub { font-size: .68rem; color: var(--muted); display: none; }
 .sc-price { font-family: 'Syne'; font-size: 1.2rem; font-weight: 800; color: var(--a4); }
 .sc-btn {
   background: linear-gradient(135deg,var(--a1),var(--a3));
@@ -855,7 +922,7 @@ footer {
 
 /* ── WA BUTTON ── */
 .wa-float {
-  position: fixed; bottom: 28px; right: 28px; z-index: 849;
+  position: fixed; bottom: 80px; right: 12px; z-index: 849;
   display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
 }
 .wa-bubble {
@@ -870,7 +937,7 @@ footer {
 }
 @keyframes bubble-in { from{opacity:0;transform:scale(.8) translateY(10px)} to{opacity:1;transform:none} }
 .wa-btn {
-  width: 58px; height: 58px; border-radius: 999px;
+  width: 48px; height: 48px; border-radius: 999px;
   background: #25D366; border: none; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 6px 24px rgba(37,211,102,.4);
@@ -908,9 +975,9 @@ footer {
   opacity: .06;
 }
 .exit-emoji { font-size: 3rem; margin-bottom: 14px; position: relative; z-index: 1; }
-.exit-h { font-family: 'Syne'; font-size: 1.6rem; font-weight: 800; margin-bottom: 8px; position: relative; z-index: 1; }
+.exit-h { font-family: 'Syne'; font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; position: relative; z-index: 1; }
 .exit-p { font-size: .82rem; color: rgba(255,255,255,.7); position: relative; z-index: 1; }
-.exit-body { padding: 28px 36px 36px; text-align: center; }
+.exit-body { padding: 20px 20px 28px; text-align: center; }
 .exit-discount {
   background: var(--a-light);
   border: 2px dashed rgba(139,92,246,.5);
@@ -928,12 +995,12 @@ footer {
   box-shadow: 0 6px 24px var(--a-glow); transition: all .22s var(--ease);
 }
 .exit-btn-main:hover { transform: translateY(-1px); box-shadow: 0 10px 32px var(--a-glow); }
-.exit-close-text { font-size: .7rem; color: var(--muted); cursor: pointer; text-decoration: underline; transition: color .2s; }
+.exit-close-text { font-size: .7rem; color: var(--muted); cursor: pointer; text-decoration: underline; transition: color .2s; padding: 12px; display: inline-block; }
 .exit-close-text:hover { color: var(--dim); }
 
 /* ── TESTIMONIALS ── */
-.testimonials { position: relative; z-index: 1; padding: 80px 56px; max-width: 1240px; margin: 0 auto; }
-.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 48px; }
+.testimonials { position: relative; z-index: 1; padding: 48px 16px; max-width: 1240px; margin: 0 auto; }
+.testi-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 36px; }
 .testi-card {
   background: var(--panel); border: 1px solid var(--line);
   border-radius: 20px; padding: 28px;
@@ -954,13 +1021,14 @@ footer {
   background: var(--surface);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  padding: 48px 56px;
+  padding: 32px 16px;
 }
-.stats-inner { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 0; }
-.stat-item { text-align: center; padding: 0 20px; border-right: 1px solid var(--line); }
-.stat-item:last-child { border-right: none; }
+.stats-inner { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.stat-item { text-align: center; padding: 20px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.stat-item:nth-child(even) { border-right: none; }
+.stat-item:nth-child(n+3) { border-bottom: none; }
 .stat-n {
-  font-family: 'Syne'; font-size: 2.8rem; font-weight: 800;
+  font-family: 'Syne'; font-size: 2rem; font-weight: 800;
   background: linear-gradient(135deg,var(--a4),#E879F9);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   line-height: 1; display: block; margin-bottom: 6px;
@@ -977,20 +1045,20 @@ footer {
   display: flex; align-items: center; flex: 1;
 }
 .cp-dot {
-  width: 32px; height: 32px; border-radius: 10px;
+  width: 28px; height: 28px; border-radius: 8px;
   background: var(--panel2); border: 1.5px solid var(--line2);
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Syne'; font-size: .68rem; font-weight: 800; color: var(--muted);
+  font-family: 'Syne'; font-size: .6rem; font-weight: 800; color: var(--muted);
   flex-shrink: 0; transition: all .35s var(--ease); z-index: 1; position: relative;
 }
 .cp-dot.active { background: linear-gradient(135deg,var(--a1),var(--a3)); border-color: var(--a2); color: #fff; box-shadow: 0 4px 16px var(--a-glow); }
 .cp-dot.done { background: rgba(16,185,129,.2); border-color: #10B981; color: #10B981; }
-.cp-label { font-size: .6rem; color: var(--muted); margin-left: 8px; font-weight: 600; transition: color .3s; white-space: nowrap; }
+.cp-label { font-size: .6rem; color: var(--muted); margin-left: 6px; font-weight: 600; transition: color .3s; white-space: nowrap; display: none; }
 .cp-label.active { color: var(--a4); }
 .cp-label.done { color: #10B981; }
 .cp-line {
   flex: 1; height: 1.5px; background: var(--line);
-  margin: 0 8px; transition: background .4s;
+  margin: 0 4px; transition: background .4s;
 }
 .cp-line.done { background: #10B981; }
 
@@ -1026,32 +1094,12 @@ footer {
 .field.error .field-msg { color: #EF4444; }
 .field.success .field-msg { color: #10B981; }
 
-/* ── RESPONSIVE ── */
-@media(max-width:900px){
-  .trust-bar { padding: 10px 20px; gap: 20px; }
-  .tb-item:nth-child(n+4) { display: none; }
-  .sticky-cta { padding: 12px 20px; }
-  .sc-sub { display: none; }
-  .testi-grid { grid-template-columns: 1fr; }
-  .stats-inner { grid-template-columns: 1fr 1fr; }
-  .stat-item { border-right: none; border-bottom: 1px solid var(--line); padding: 20px; }
-  .stat-item:nth-child(odd) { border-right: 1px solid var(--line); }
-  .stat-item:last-child, .stat-item:nth-last-child(2):nth-child(odd) { border-bottom: none; }
-  .testimonials { padding: 60px 24px; }
-  .stats-band { padding: 0; }
-  .wa-float { bottom: 20px; right: 16px; }
-}
-@media(max-width:640px){
-  .sticky-cta { flex-direction: column; gap: 10px; padding: 16px 20px; }
-  .sc-btn { width: 100%; text-align: center; }
-  .exit-body { padding: 20px 24px 28px; }
-  .exit-h { font-size: 1.3rem; }
-}
+/* (mobile-first responsive rules are above) */
 
 /* ── MOBILE NAV ── */
 .n-hamburger {
-  display: none; background: none; border: 1px solid var(--line2);
-  width: 38px; height: 38px; border-radius: 10px; cursor: pointer;
+  display: flex; background: none; border: 1px solid var(--line2);
+  width: 44px; height: 44px; border-radius: 10px; cursor: pointer;
   flex-direction: column; align-items: center; justify-content: center; gap: 5px;
   transition: all .2s;
 }
@@ -1079,10 +1127,106 @@ footer {
   text-align: center; cursor: pointer;
   box-shadow: 0 6px 24px var(--a-glow);
 }
-@media(max-width:900px) {
-  .n-hamburger { display: flex; }
-  .n-links { display: none !important; }
-  .n-actions .n-btn-ghost { display: none; }
+/* nav responsive handled in mobile-first queries above */
+.n-actions .n-btn-ghost { display: none; }
+
+/* ── SHIPPING CARDS ── */
+.ship-card {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 20px; padding: 22px; transition: all .3s var(--ease);
+}
+.ship-card:hover { border-color: var(--line2); transform: translateY(-4px); }
+.ship-card-hd { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.ship-flag { font-size: 1.8rem; }
+.ship-title { font-family: 'Syne'; font-size: .9rem; font-weight: 800; }
+.ship-subtitle { font-size: .66rem; color: var(--muted); }
+.ship-badge {
+  margin-left: auto; background: rgba(16,185,129,.15);
+  border: 1px solid rgba(16,185,129,.3); border-radius: 999px;
+  padding: 4px 12px; font-size: .58rem; font-weight: 700; color: #10B981;
+  white-space: nowrap;
+}
+.ship-rows { display: flex; flex-direction: column; gap: 10px; }
+.ship-row {
+  display: flex; justify-content: space-between; font-size: .74rem;
+  padding-bottom: 10px; border-bottom: 1px solid var(--line);
+  flex-wrap: wrap; gap: 4px;
+}
+.ship-row:last-child { border-bottom: none; padding-bottom: 0; }
+.ship-row-k { color: var(--muted); }
+.ship-row-v { font-weight: 600; text-align: right; }
+
+/* ── POLICY CARDS ── */
+.policy-card {
+  border-radius: 18px; padding: 22px 18px;
+}
+.policy-icon { font-size: 1.4rem; margin-bottom: 12px; }
+.policy-title { font-family: 'Syne'; font-size: .8rem; font-weight: 800; margin-bottom: 8px; }
+.policy-desc { font-size: .72rem; line-height: 1.82; color: var(--dim); }
+
+/* ── CUSTOMS NOTICE ── */
+.customs-notice {
+  margin-top: 20px; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 16px;
+  padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start;
+}
+.customs-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+.customs-title { font-family: 'Syne'; font-size: .78rem; font-weight: 700; margin-bottom: 6px; }
+.customs-desc { font-size: .72rem; line-height: 1.82; color: var(--dim); }
+
+/* ── PRICE PANEL EXTRAS ── */
+.pp-guarantee {
+  background: rgba(16,185,129,.07); border: 1px solid rgba(16,185,129,.2);
+  border-radius: 12px; padding: 12px 14px; margin-bottom: 14px;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.pp-guarantee-icon { font-size: .9rem; flex-shrink: 0; }
+.pp-guarantee-title { font-family: 'Syne'; font-size: .66rem; font-weight: 700; color: #10B981; margin-bottom: 3px; }
+.pp-guarantee-desc { font-size: .62rem; line-height: 1.65; color: var(--muted); }
+.pp-payments {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; margin-top: 10px; flex-wrap: wrap;
+}
+.pp-payments span { font-size: .58rem; color: var(--muted); }
+.pp-payments-brand { font-size: .62rem !important; font-weight: 700; color: var(--a4) !important; }
+
+/* ── HERO BADGES ── */
+.hero-badges {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
+  flex-wrap: wrap; justify-content: center;
+  opacity: 0; animation: fu .9s var(--ease) .5s forwards;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 999px; padding: 5px 12px;
+  font-size: .6rem; color: var(--dim);
+}
+.hero-badge-label { font-size: .6rem; color: var(--muted); }
+.hero-badge-green {
+  background: rgba(16,185,129,.1); border-color: rgba(16,185,129,.25);
+  color: #10B981;
+}
+
+/* ── PP SUBTOTAL ROW ── */
+.pp-row-subtotal {
+  border-top: 1px solid var(--line2); padding-top: 12px; margin-top: 4px;
+}
+.pp-ship-days { font-size: .6rem; color: var(--muted); margin-top: 2px; }
+
+/* ── INSTAGRAM FLOAT ── */
+.ig-float {
+  position: fixed; bottom: 140px; right: 12px; z-index: 849;
+  width: 44px; height: 44px; border-radius: 999px;
+  background: radial-gradient(circle at 30% 110%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(214,36,159,.4);
+  transition: transform .25s var(--ease), box-shadow .25s;
+  text-decoration: none;
+}
+.ig-float:hover { transform: scale(1.1); box-shadow: 0 8px 28px rgba(214,36,159,.55); }
+@media(min-width:900px){
+  .ig-float { bottom: 96px; right: 28px; width: 54px; height: 54px; }
 }
 
 </style>
@@ -1223,10 +1367,10 @@ footer {
     <button class="btn-grad" onclick="smoothTo('configurador')">Configurar mi cuadro →</button>
     <button class="btn-ghost" onclick="smoothTo('galeria')">Ver galería de diseños ↓</button>
   </div>
-  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fu .9s var(--ease) .5s forwards;">
-    <span style="font-size:.62rem;color:var(--muted)">Pago seguro</span>
-    <span style="display:inline-flex;align-items:center;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 14px;font-size:.62rem;color:var(--dim)">🔒 Stripe · Visa · MC · AMEX · OXXO</span>
-    <span style="display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);border-radius:999px;padding:5px 14px;font-size:.62rem;color:#10B981">✓ Devolución garantizada</span>
+  <div class="hero-badges">
+    <span class="hero-badge-label">Pago seguro</span>
+    <span class="hero-badge">🔒 Stripe · Visa · MC · AMEX · OXXO</span>
+    <span class="hero-badge hero-badge-green">✓ Devolución garantizada</span>
   </div>
   <div class="material-pills">
     <div class="mpill">
@@ -1579,7 +1723,7 @@ footer {
             <div class="pp-row"><span class="pp-row-k">Área</span><span class="pp-row-v empty" id="rArea">—</span></div>
             <div class="pp-row"><span class="pp-row-k">Precio/cm²</span><span class="pp-row-v empty" id="rRate">—</span></div>
             <div class="pp-row"><span class="pp-row-k">Diseño</span><span class="pp-row-v empty" id="rDesign">Sin seleccionar</span></div>
-            <div class="pp-row" style="border-top:1px solid var(--line2);padding-top:12px;margin-top:4px">
+            <div class="pp-row pp-row-subtotal">
               <span class="pp-row-k">Subtotal cuadro</span>
               <span class="pp-row-v empty" id="rSubtotal">—</span>
             </div>
@@ -1593,28 +1737,28 @@ footer {
           <div class="pp-price">
             <div>
               <span class="pp-price-label">Total a pagar</span>
-              <div style="font-size:.6rem;color:var(--muted);margin-top:2px" id="rShipDays"></div>
+              <div class="pp-ship-days" id="rShipDays"></div>
             </div>
             <span class="pp-price-val" id="ppTotal">—</span>
           </div>
 
           <!-- REFUND POLICY -->
-          <div style="background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);border-radius:12px;padding:12px 14px;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start;">
-            <span style="font-size:.9rem;flex-shrink:0">🛡️</span>
+          <div class="pp-guarantee">
+            <span class="pp-guarantee-icon">🛡️</span>
             <div>
-              <div style="font-family:Syne;font-size:.66rem;font-weight:700;color:#10B981;margin-bottom:3px">Compra 100% segura</div>
-              <p style="font-size:.62rem;line-height:1.65;color:var(--muted)">Si por algún motivo no podemos completar tu pedido, realizamos la devolución completa en 3-5 días hábiles. Sin preguntas.</p>
+              <div class="pp-guarantee-title">Compra 100% segura</div>
+              <p class="pp-guarantee-desc">Si por algún motivo no podemos completar tu pedido, realizamos la devolución completa en 3-5 días hábiles. Sin preguntas.</p>
             </div>
           </div>
 
           <button class="btn-order" id="btnOrder" disabled onclick="sendOrder()">
             🔒 Pagar y confirmar orden →
           </button>
-          <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;flex-wrap:wrap;">
-            <span style="font-size:.58rem;color:var(--muted)">Pagos seguros con</span>
-            <span style="font-size:.62rem;font-weight:700;color:var(--a4)">Stripe</span>
-            <span style="font-size:.58rem;color:var(--muted)">·</span>
-            <span style="font-size:.58rem;color:var(--muted)">Visa · Mastercard · AMEX · OXXO</span>
+          <div class="pp-payments">
+            <span>Pagos seguros con</span>
+            <span class="pp-payments-brand">Stripe</span>
+            <span>·</span>
+            <span>Visa · Mastercard · AMEX · OXXO</span>
           </div>
         </div>
       </div>
@@ -1686,114 +1830,96 @@ footer {
 <div class="section" style="max-width:1240px">
   <span class="section-tag">Envíos y garantías</span>
   <h2 class="section-h">Enviamos a todo<br>México y el mundo.</h2>
-  <p class="section-p" style="margin-bottom:52px">Trabajamos con las mejores paqueterías para que tu cuadro llegue en perfectas condiciones, sin importar dónde estés.</p>
+  <p class="section-p" style="margin-bottom:40px">Trabajamos con las mejores paqueterías para que tu cuadro llegue en perfectas condiciones, sin importar dónde estés.</p>
 
   <!-- Shipping zones -->
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:64px" class="ship-grid">
+  <div class="ship-grid" style="display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:48px">
 
     <!-- México -->
-    <div style="background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:28px;transition:all .3s var(--ease)" onmouseover="this.style.borderColor='var(--line2)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--line)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
-        <div style="font-size:2rem">🇲🇽</div>
+    <div class="ship-card">
+      <div class="ship-card-hd">
+        <div class="ship-flag">🇲🇽</div>
         <div>
-          <div style="font-family:Syne;font-size:.9rem;font-weight:800">México</div>
-          <div style="font-size:.66rem;color:var(--muted)">Envío nacional</div>
+          <div class="ship-title">México</div>
+          <div class="ship-subtitle">Envío nacional</div>
         </div>
-        <div style="margin-left:auto;background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);border-radius:999px;padding:4px 12px;font-size:.58rem;font-weight:700;color:#10B981">Más rápido</div>
+        <div class="ship-badge">Más rápido</div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div style="display:flex;justify-content:space-between;font-size:.76rem;padding-bottom:10px;border-bottom:1px solid var(--line)">
-          <span style="color:var(--muted)">CDMX y área metro</span><span style="font-weight:600">2-3 días · Gratis &gt;$2,000</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:.76rem;padding-bottom:10px;border-bottom:1px solid var(--line)">
-          <span style="color:var(--muted)">Interior república</span><span style="font-weight:600">3-5 días hábiles</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:.76rem">
-          <span style="color:var(--muted)">Paqueterías</span><span style="font-weight:600">FedEx · DHL · Estafeta</span>
-        </div>
+      <div class="ship-rows">
+        <div class="ship-row"><span class="ship-row-k">CDMX y área metro</span><span class="ship-row-v">2-3 días · Gratis &gt;$2,000</span></div>
+        <div class="ship-row"><span class="ship-row-k">Interior república</span><span class="ship-row-v">3-5 días hábiles</span></div>
+        <div class="ship-row"><span class="ship-row-k">Paqueterías</span><span class="ship-row-v">FedEx · DHL · Estafeta</span></div>
       </div>
     </div>
 
     <!-- LATAM / USA -->
-    <div style="background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:28px;transition:all .3s var(--ease)" onmouseover="this.style.borderColor='var(--line2)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--line)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
-        <div style="font-size:2rem">🌎</div>
+    <div class="ship-card">
+      <div class="ship-card-hd">
+        <div class="ship-flag">🌎</div>
         <div>
-          <div style="font-family:Syne;font-size:.9rem;font-weight:800">LATAM & EE.UU.</div>
-          <div style="font-size:.66rem;color:var(--muted)">Internacional</div>
+          <div class="ship-title">LATAM & EE.UU.</div>
+          <div class="ship-subtitle">Internacional</div>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div style="display:flex;justify-content:space-between;font-size:.76rem;padding-bottom:10px;border-bottom:1px solid var(--line)">
-          <span style="color:var(--muted)">EE.UU. y Canadá</span><span style="font-weight:600">5-8 días hábiles</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:.76rem;padding-bottom:10px;border-bottom:1px solid var(--line)">
-          <span style="color:var(--muted)">Latinoamérica</span><span style="font-weight:600">7-12 días hábiles</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:.76rem">
-          <span style="color:var(--muted)">Paqueterías</span><span style="font-weight:600">FedEx International · DHL</span>
-        </div>
+      <div class="ship-rows">
+        <div class="ship-row"><span class="ship-row-k">EE.UU. y Canadá</span><span class="ship-row-v">5-8 días hábiles</span></div>
+        <div class="ship-row"><span class="ship-row-k">Latinoamérica</span><span class="ship-row-v">7-12 días hábiles</span></div>
+        <div class="ship-row"><span class="ship-row-k">Paqueterías</span><span class="ship-row-v">FedEx International · DHL</span></div>
       </div>
     </div>
 
     <!-- Europa -->
-    <div style="background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:28px;transition:all .3s var(--ease)" onmouseover="this.style.borderColor='var(--line2)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--line)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
-        <div style="font-size:2rem">🌍</div>
+    <div class="ship-card">
+      <div class="ship-card-hd">
+        <div class="ship-flag">🌍</div>
         <div>
-          <div style="font-family:Syne;font-size:.9rem;font-weight:800">Europa y resto</div>
-          <div style="font-size:.66rem;color:var(--muted)">Internacional</div>
+          <div class="ship-title">Europa y resto</div>
+          <div class="ship-subtitle">Internacional</div>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div style="display:flex;justify-content:space-between;font-size:.76rem;padding-bottom:10px;border-bottom:1px solid var(--line)">
-          <span style="color:var(--muted)">Europa</span><span style="font-weight:600">8-14 días hábiles</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:.76rem;padding-bottom:10px;border-bottom:1px solid var(--line)">
-          <span style="color:var(--muted)">Resto del mundo</span><span style="font-weight:600">10-18 días hábiles</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:.76rem">
-          <span style="color:var(--muted)">Paqueterías</span><span style="font-weight:600">DHL Express · FedEx</span>
-        </div>
+      <div class="ship-rows">
+        <div class="ship-row"><span class="ship-row-k">Europa</span><span class="ship-row-v">8-14 días hábiles</span></div>
+        <div class="ship-row"><span class="ship-row-k">Resto del mundo</span><span class="ship-row-v">10-18 días hábiles</span></div>
+        <div class="ship-row"><span class="ship-row-k">Paqueterías</span><span class="ship-row-v">DHL Express · FedEx</span></div>
       </div>
     </div>
   </div>
 
   <!-- Policies grid -->
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px" class="policy-grid">
+  <div class="policy-grid" style="display:grid;grid-template-columns:1fr;gap:14px">
 
-    <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:18px;padding:24px 20px">
-      <div style="font-size:1.6rem;margin-bottom:12px">🛡️</div>
-      <div style="font-family:Syne;font-size:.82rem;font-weight:800;margin-bottom:8px">Garantía de calidad</div>
-      <p style="font-size:.72rem;line-height:1.82;color:var(--dim)">Si tu cuadro llega con defectos de producción, lo reponemos sin costo. Fotografías requeridas dentro de 48 horas.</p>
+    <div class="policy-card" style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2)">
+      <div class="policy-icon">🛡️</div>
+      <div class="policy-title">Garantía de calidad</div>
+      <p class="policy-desc">Si tu cuadro llega con defectos de producción, lo reponemos sin costo. Fotografías requeridas dentro de 48 horas.</p>
     </div>
 
-    <div style="background:rgba(6,182,212,.08);border:1px solid rgba(6,182,212,.2);border-radius:18px;padding:24px 20px">
-      <div style="font-size:1.6rem;margin-bottom:12px">📦</div>
-      <div style="font-family:Syne;font-size:.82rem;font-weight:800;margin-bottom:8px">Empaque premium</div>
-      <p style="font-size:.72rem;line-height:1.82;color:var(--dim)">Cada pieza se embala con protección de espuma, cartón reforzado y esquinas protectoras. Tu cuadro viaja seguro.</p>
+    <div class="policy-card" style="background:rgba(6,182,212,.08);border:1px solid rgba(6,182,212,.2)">
+      <div class="policy-icon">📦</div>
+      <div class="policy-title">Empaque premium</div>
+      <p class="policy-desc">Cada pieza se embala con protección de espuma, cartón reforzado y esquinas protectoras. Tu cuadro viaja seguro.</p>
     </div>
 
-    <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:18px;padding:24px 20px">
-      <div style="font-size:1.6rem;margin-bottom:12px">🔍</div>
-      <div style="font-family:Syne;font-size:.82rem;font-weight:800;margin-bottom:8px">Seguimiento en tiempo real</div>
-      <p style="font-size:.72rem;line-height:1.82;color:var(--dim)">Recibirás número de guía para rastrear tu pedido. Notificaciones automáticas en cada etapa del envío.</p>
+    <div class="policy-card" style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2)">
+      <div class="policy-icon">🔍</div>
+      <div class="policy-title">Seguimiento en tiempo real</div>
+      <p class="policy-desc">Recibirás número de guía para rastrear tu pedido. Notificaciones automáticas en cada etapa del envío.</p>
     </div>
 
-    <div style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:18px;padding:24px 20px">
-      <div style="font-size:1.6rem;margin-bottom:12px">💬</div>
-      <div style="font-family:Syne;font-size:.82rem;font-weight:800;margin-bottom:8px">Soporte dedicado</div>
-      <p style="font-size:.72rem;line-height:1.82;color:var(--dim)">Atención personalizada vía WhatsApp y email. Resolvemos cualquier duda antes, durante y después de tu compra.</p>
+    <div class="policy-card" style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2)">
+      <div class="policy-icon">💬</div>
+      <div class="policy-title">Soporte dedicado</div>
+      <p class="policy-desc">Atención personalizada vía WhatsApp y email. Resolvemos cualquier duda antes, durante y después de tu compra.</p>
     </div>
 
   </div>
 
   <!-- Customs notice -->
-  <div style="margin-top:20px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 24px;display:flex;gap:16px;align-items:flex-start">
-    <div style="font-size:1.2rem;flex-shrink:0;margin-top:2px">ℹ️</div>
+  <div class="customs-notice">
+    <div class="customs-icon">ℹ️</div>
     <div>
-      <div style="font-family:Syne;font-size:.78rem;font-weight:700;margin-bottom:6px">Envíos internacionales — Aduanas</div>
-      <p style="font-size:.72rem;line-height:1.82;color:var(--dim)">Para envíos fuera de México, el comprador es responsable de los impuestos de importación y aranceles aduaneros que apliquen en su país. Los tiempos de entrega pueden variar por retenciones aduaneras. Siempre declaramos el valor real de los productos.</p>
+      <div class="customs-title">Envíos internacionales — Aduanas</div>
+      <p class="customs-desc">Para envíos fuera de México, el comprador es responsable de los impuestos de importación y aranceles aduaneros que apliquen en su país. Los tiempos de entrega pueden variar por retenciones aduaneras. Siempre declaramos el valor real de los productos.</p>
     </div>
   </div>
 </div>
@@ -2527,12 +2653,25 @@ setTimeout(() => { _showTicker(); setInterval(_showTicker, 14000); }, 8000);
 
 // ── EXIT INTENT ──
 let _exitShown = false;
+// Desktop: mouse leaves viewport
 document.addEventListener('mouseleave', e => {
   if (e.clientY < 5 && !_exitShown) {
     _exitShown = true;
     setTimeout(() => document.getElementById('exitOverlay')?.classList.add('open'), 200);
   }
 });
+// Mobile: scroll-up intent after scrolling 50%+ of page
+let _lastScrollY = 0, _scrolledPast50 = false;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const half = document.body.scrollHeight * 0.5;
+  if (y > half) _scrolledPast50 = true;
+  if (_scrolledPast50 && !_exitShown && _lastScrollY - y > 300) {
+    _exitShown = true;
+    setTimeout(() => document.getElementById('exitOverlay')?.classList.add('open'), 200);
+  }
+  _lastScrollY = y;
+}, { passive: true });
 function closeExit() { document.getElementById('exitOverlay')?.classList.remove('open'); }
 document.getElementById('exitOverlay')?.addEventListener('click', e => { if (e.target.id === 'exitOverlay') closeExit(); });
 
@@ -2609,17 +2748,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 <!-- FLOATING INSTAGRAM -->
-<a href="https://instagram.com/" target="_blank" title="Instagram"
-  style="position:fixed;bottom:96px;right:28px;z-index:849;
-  width:54px;height:54px;border-radius:999px;
-  background:radial-gradient(circle at 30% 110%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%);
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px rgba(214,36,159,.4);
-  transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s;
-  text-decoration:none;"
-  onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 8px 28px rgba(214,36,159,.55)'"
-  onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 20px rgba(214,36,159,.4)'">
-  <svg width="26" height="26" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+<a href="https://instagram.com/" target="_blank" title="Instagram" class="ig-float">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
   </svg>
 </a>
